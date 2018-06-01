@@ -1,0 +1,88 @@
+Id	Country	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III	Title III Accounts	Title III Percentage
+AFG	Afghanistan	1	1	0%																					
+ALB	Albania	16	34	25.00%																					
+DZA	Algeria	1	1	0%																					
+198	Andorra	3	3	33.33%																					
+ARG	Argentina	482	708	48.55%																					
+ARM	Armenia	1	1	0%																					
+AUS	Australia	829	933	68.64%																					
+AUT	Austria	46	63	10.87%																					
+163	Bahrain	3	10	0%																					
+BGD	Bangladesh	5	5	0%																					
+BEL	Belgium	239	319	59.00%																					
+BIH	Bosnia and Herzegovina	5	9	80.00%																					
+BRA	Brazil	1,212	1,967	34.32%																					
+CAN	Canada	279	355	57.71%																					
+CHL	Chile	288	410	61.46%																					
+COL	Colombia	67	106	55.22%																					
+CRI	Costa Rica	1	2	0%																					
+HRV	Croatia	21	28	80.95%																					
+CYP	Cyprus	20	26	60.00%																					
+CZE	Czech Republic	22	132	54.55%																					
+DNK	Denmark	31	33	35.48%																					
+DOM	Dominican Republic	22	39	40.91%																					
+ECU	Ecuador	2	10	0%																					
+EGY	Egypt	5	5	0%																					
+EST	Estonia	6	7	66.67%																					
+FIN	Finland	18	28	72.22%																					
+FRA	France	2,094	2,885	42.41%																					
+DEU	Germany	2,132	2,611	34.29%																					
+GRC	Greece	117	142	57.26%																					
+GRL	Greenland	1	1	100.00%																					
+HKG	Hong Kong	39	51	41.03%																					
+HUN	Hungary	128	167	34.38%																					
+IND	India	5,473	7,281	44.69%																					
+IDN	Indonesia	5	21	40.00%																					
+IRL	Ireland	34	34	70.59%																					
+ISR	Israel	232	310	46.98%																					
+ITA	Italy	1,774	2,696	46.45%																					
+JPN	Japan	9	9	11.11%																					
+JOR	Jordan	3	3	33.33%																					
+KAZ	Kazakhstan	2	5	0%																					
+KEN	Kenya	2	3	0%																					
+OSA	Kosovo	2	7	50.00%																					
+KWT	Kuwait	4	6	0%																					
+210	Liechtenstein	2	3	50.00%																					
+LTU	Lithuania	12	21	41.67%																					
+LUX	Luxembourg	1	4	100.00%																					
+168	Macau	1	1	0%																					
+MKD	Macedonia	5	8	20.00%																					
+MYS	Malaysia	17	22	23.53%																					
+174	Maldives	3	3	66.67%																					
+173	Malta	93	112	70.97%																					
+MEX	Mexico	260	412	61.92%																					
+MDA	Moldova	4	4	25.00%																					
+MNE	Montenegro	4	4	25.00%																					
+MMR	Myanmar	0	0	0%																					
+NPL	Nepal	2	4	0%																					
+NLD	Netherlands	76	84	64.47%																					
+NZL	New Zealand	139	151	62.59%																					
+NOR	Norway	21	22	47.62%																					
+PAK	Pakistan	100	152	42.00%																					
+PRY	Paraguay	2	2	0%																					
+PER	Peru	10	20	50.00%																					
+PHL	Philippines	7	27	85.71%																					
+POL	Poland	305	349	29.84%																					
+PRT	Portugal	305	365	34.75%																					
+ROU	Romania	14	35	42.86%																					
+RUS	Russia	2	0	0%																					
+SEN	Senegal	1	1	0%																					
+SRB	Serbia	15	25	60.00%																					
+SGP	Singapore	177	194	74.58%																					
+SVK	Slovakia	5	5	20.00%																					
+SVN	Slovenia	3	3	33.33%																					
+ZAF	South Africa	2	2	50.00%																					
+KOR	South Korea	14	29	42.86%																					
+ESP	Spain	500	1,041	37.00%																					
+SDN	Sudan	2	2	0%																					
+SWE	Sweden	213	289	76.06%																					
+CHE	Switzerland	39	137	10.26%																					
+TWN	Taiwan	204	327	56.37%																					
+THA	Thailand	3	3	0%																					
+TUN	Tunisia	2	2	0%																					
+TUR	Turkey	165	278	70.91%																					
+UKR	Ukraine	1	1	0%																					
+ARE	United Arab Emirates	2	2	0%																					
+GBR	United Kingdom	2,366	2,890	75.11%																					
+USA	United States	14,274	21,731	79.14%	618	685	63.27%	7,924	12,403	84.21%	4,638	7,278	71.67%	267	415	62.17%	241	328	86.72%	583	619	91.08%	3	3	100.00%
+URY	Uruguay	2	2	0%																					
