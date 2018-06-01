@@ -11,13 +11,17 @@
     font-weight: 400;
     font-family: "avenir next", Arial, sans-serif;
     padding: 6px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #FFA500;
+    background: rgb(128,128,128);
+    color: rgb(0, 0, 0);
     border-radius: 1px;
     pointer-events: none;
 }
 
-/* Creates a small triangle extender for the tooltip */
+/* Dont Need triangle below since tooltip position is set
+
+Set opacity to 100 to exclude it
+
+Creates a small triangle extender for the tooltip */
 
 .d3-tip:after {
     box-sizing: border-box;
@@ -25,9 +29,10 @@
     font-size: 8px;
     width: 100%;
     line-height: 1.5;
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0);
     position: absolute;
     pointer-events: none;
+    opacity: 100;
 }
 
 /* Northward tooltips */
