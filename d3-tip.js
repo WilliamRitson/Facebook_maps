@@ -69,8 +69,16 @@
       while (i--) nodel.classed(directions[i], false)
       coords = directionCallbacks.get(dir).apply(this)
       nodel.classed(dir, true)
-        .style('top', (coords.top + poffset[0]) + scrollTop + 'px')
-        .style('left', (coords.left + poffset[1]) + scrollLeft + 'px')
+        //Change tooltip placement here
+        
+        //Absolute placement (top right of window)
+        .style('top', 50 + 'px')
+        .style('right', 70 + 'px')
+        
+        //Original (over each country)
+        //.style('top', (coords.top + poffset[0]) + scrollTop + 'px')
+       // .style('left', (coords.left + poffset[1]) + scrollLeft + 'px')
+
 
       return tip
     }

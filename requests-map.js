@@ -3,7 +3,7 @@ var format = d3.format(",");
 // Set tooltips
 var tip = d3.tip()
     .attr('class', 'd3-tip')
-    .offset([-10, 0])
+    .offset([100, 0])
     .html(function (d) {
         return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "</span>";
     })
