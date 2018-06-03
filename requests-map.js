@@ -5,7 +5,7 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([100, 0])
     .html(function (d) {
-        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "</span>";
+        return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>"+ "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>"+ "<br><strong>Approval Rate: </strong><span class='details'>" + format(d.rate) + "%" + "</span>";
     })
 
 var margin = {
@@ -43,15 +43,22 @@ queue()
     .defer(d3.tsv, "Data_Requests_2013_H1.tsv")
     .await(ready);
 
-function ready(error, data, requests) {
+function ready(error, data, requests, accounts, rate) {
     var requestsById = {};
+    var accountsById = {};
+    var rateById = {};
 
     requests.forEach(function (d) {
         requestsById[d.id] = +d.requests;
+        accountsById[d.id] = +d.accounts;
+        rateById[d.id] = +d.rate;
     });
     data.features.forEach(function (d) {
         d.requests = requestsById[d.id]
+        d.accounts = accountsById[d.id]
+        d.rate = rateById[d.id]
     });
+    console.log;
 
     svg.append("g")
         .attr("class", "countries")
