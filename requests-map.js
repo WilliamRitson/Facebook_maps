@@ -5,7 +5,12 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([100, 0])
     .html(function (d) {
+          if (isNaN(d.requests)) {
+               return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + "No Requests Made" + "<br></span>"+ "<strong>Accounts Requested: </strong><span class='details'>" + "0" + "</span>"+ "<br><strong>Approval Rate: </strong><span class='details'>" + "Not Applicable" + "</span>";
+            }
+        else{
         return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>"+ "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>"+ "<br><strong>Approval Rate: </strong><span class='details'>" + format(d.rate) + "%" + "</span>";
+        }
     })
 
 var margin = {
