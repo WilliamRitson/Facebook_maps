@@ -2,7 +2,15 @@ import csv
 import json
 import os
 import re
+import sys
+import os
 
+print(sys.version)
+
+
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 range_regex = re.compile('([0-9,]+)\s*-\s*([0-9,]+)')
 def parse(str):
@@ -59,20 +67,23 @@ merge_ops = [
     ('Pen Register/Trap and Trace Percentage', average),
     ('Title III,Title III Accounts', add),
     ('Title III Percentage', average),
+    ('Title III', add), 
+    ('Title III Accounts', add),
     ('NSLs', add),
     ('NSLs Accounts', add)
 ]
 
 def merge_country(c1, c2):
     for key, op in merge_ops:
-        if key in c1 and key in c2:
+        print(key)
+        if key in c1 and c1[key] != '' and key in c2 and c2[key] != '':
             c1[key] = op(
                 parse(c1[key]), 
                 parse(c2[key])
             )
-        elif key in c1:
+        elif key in c1 and c1[key] != '':
             c1[key] = parse(c1[key])
-        elif key in c2:
+        elif key in c2 and c2[key] != '':
             c1[key] = parse(c2[key])
         else:
             c1[key] = ''
@@ -128,24 +139,59 @@ def output_file(data, filename, headers):
         for country in data:
             writer.writerow(country)
     
-ids, x = extract_data('world_population.tsv', '\t')
+ids, x = extract_data('./world_population.tsv', '\t')
 id_map = {}
 for country in ids:
     id_map[country['name']] = country['id']
 
 
-d1, h1 = extract_data('./facebook_data/Data Requests-2013-H1.csv', ',')
-d2, h2 = extract_data('./facebook_data/Data Requests-2013-H2.csv', ',')
-merged = merge_sets(d1, d2)
-add_ids(merged, id_map)
+sources = [
+    {
+        'dir': 'facebook_data',
+        'out_dir': 'facebook_output',
+        'files': [{
+            'inputs': ['Data Requests-2013-H1.csv', 'Data Requests-2013-H2.csv'],
+            'output': 'Data Requests-2013.tsv'
+        },{
+            'inputs': ['Data Requests-2014-H1.csv', 'Data Requests-2014-H2.csv'],
+            'output': 'Data Requests-2014.tsv'
+        },{
+            'inputs': ['Data Requests-2015-H1.csv', 'Data Requests-2015-H2.csv'],
+            'output': 'Data Requests-2015.tsv'
+        },{
+            'inputs': ['Data Requests-2016-H1.csv', 'Data Requests-2016-H2.csv'],
+            'output': 'Data Requests-2016.tsv'
+        },{
+            'inputs': ['Data Requests-2017-H1.csv', 'Data Requests-2017-H2.csv'],
+            'output': 'Data Requests-2017.tsv'
+        }]
+    }
+]
 
-headers = []
-for key, op in merge_ops:
-    headers.append(key)
 
-#headers = ['Id'] + list(merge_ops.keys())
-output_file(merged, './output/Data Requests-2013.tsv', headers)
+for source in sources:
+    if not os.path.exists(source['out_dir']):
+        os.makedirs(source['out_dir'])
+        
+    all = []
+    year = 2013
+    for file in source['files']:
+        
+        d1, h1 = extract_data(source['dir'] + '/' + file['inputs'][0], ',')
+        d2, h2 = extract_data(source['dir'] + '/' + file['inputs'][1], ',')
+        merged = merge_sets(d1, d2)
+        add_ids(merged, id_map)
+        
+        for country in merged:
+            country_with_year = country.copy()
+            country_with_year['Year'] = year
+            all.append(country_with_year)
 
-#for file in os.listdir('facebook_data'):
-#    print(file) 
-#    reformat_file(file, id_map)
+        headers = []
+        for key, op in merge_ops:
+            headers.append(key)
+        
+        output_file(merged, source['out_dir'] + '/' + file['output'], headers)
+        year += 1
+    output_file(all, source['out_dir'] + '/' + 'all.tsv', ['Year'] + headers)
+
