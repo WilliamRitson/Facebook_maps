@@ -72,7 +72,7 @@
         //Change tooltip placement here
         
         //Absolute placement (top right of window)
-        .style('top', 50 + 'px')
+        .style('top', 190 + 'px')
         .style('right', 70 + 'px')
         
         //Original (over each country)
