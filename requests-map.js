@@ -5,7 +5,7 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([100, 0])
     .html(function (d) {
-          if (isNaN(d.requests)) {
+          if (isNaN(d.requests)|| (d.requests==0)) {
                return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + "No Requests Made" + "<br></span>"+ "<strong>Accounts Requested: </strong><span class='details'>" + "0" + "</span>"+ "<br><strong>Approval Rate: </strong><span class='details'>" + "Not Applicable" + "</span>";
             }
         else{
@@ -23,7 +23,7 @@ var margin = {
     height = 500 - margin.top - margin.bottom;
 
 var color = d3.scaleThreshold()
-    .domain([1, 10, 50, 100, 150, 250, 500, 1000, 5000, 12000])
+    .domain([ 1, 50, 300, 600, 1000, 4000, 8000, 17000, 35000, 70000])
     .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(0,76,153)", "rgb(0,0,153)"]);
 
 var path = d3.geoPath();
@@ -67,6 +67,7 @@ function ready(error, data, requests, accounts, rate) {
         d.rate = rateById[d.id]
     });
 
+    //Changes to country color White
     svg.append("g")
         .attr("class", "countries")
         .selectAll("path")
@@ -74,7 +75,8 @@ function ready(error, data, requests, accounts, rate) {
         .enter().append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            return color(requestsById[d.id]);
+        let colorVal = requestsById[d.id] != 0 ? requestsById[d.id] : NaN;
+            return color(colorVal);
         })
         .style('stroke', 'white')
         .style('stroke-width', 1.5)
@@ -106,4 +108,25 @@ function ready(error, data, requests, accounts, rate) {
         // .datum(topojson.mesh(data.features, function(a, b) { return a !== b; }))
         .attr("class", "names")
         .attr("d", path);
+        
+        
+     //legend  
+       svg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(30,330)");
+
+   var legendLinear = d3.legendColor()
+     .shapeWidth(45)
+     .shapeHeight(10)
+     .title("Government Data Requests")
+     .cells([.001, .10, .25, .5,1])
+     .orient('vertical')
+     .scale(color)
+      .labelFormat(d3.format("d"));
+
+  
+            
+
+   svg.select(".legendLinear")
+     .call(legendLinear);
 }
