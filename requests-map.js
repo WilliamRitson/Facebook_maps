@@ -45,25 +45,27 @@ svg.call(tip);
 
 queue()
     .defer(d3.json, "world_countries.json")
-    .defer(d3.tsv, "Data_Requests_2013_H1.tsv")
+    .defer(d3.tsv, "data/facebook_output/all.tsv")
     .await(ready);
 
 function ready(error, data, requests, accounts, rate) {
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
+    
+    requests = requests.filter(r => r['Year'] == '2017')
 
     requests.forEach(function (d) {
-        requestsById[d.id] = +d.requests;
-        accountsById[d.id] = +d.accounts;
-        rateById[d.id] = +d.rate;
+        requestsById[d.id] = +d['Total Data Requests'];
+        accountsById[d.id] = +d['Total Users/Accounts Requested'];
+        rateById[d.id] = +d['Percent Requests Where Some Data Produced'];
     });
+    
     data.features.forEach(function (d) {
         d.requests = requestsById[d.id]
         d.accounts = accountsById[d.id]
         d.rate = rateById[d.id]
     });
-    console.log;
 
     svg.append("g")
         .attr("class", "countries")

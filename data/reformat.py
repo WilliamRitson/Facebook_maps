@@ -34,7 +34,7 @@ def add(a, b):
 
 
 merge_ops = [
-    ('Id', first),
+    ('id', first),
     ('Country', first),
     ('Preservation Requests', add),
     ('Preservation Accounts Preserved', add),
@@ -128,7 +128,7 @@ def add_ids(data, id_map):
     for country in data:
         name = country['Country']
         if name in id_map:
-            country['Id'] = id_map[name]
+            country['id'] = id_map[name]
         else:
             print('No id for', name)
 

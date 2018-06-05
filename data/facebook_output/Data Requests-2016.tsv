@@ -1,4 +1,4 @@
-Id	Country	Preservation Requests	Preservation Accounts Preserved	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Legal Process Request Total	Legal Process Request Total Accounts	Legal Process Request Total Percentage	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Emergency Disclosures Accounts	Emergency Disclosures	Emergency Disclosures Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III,Title III Accounts	Title III Percentage	Title III	Title III Accounts	NSLs	NSLs Accounts
+id	Country	Preservation Requests	Preservation Accounts Preserved	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Legal Process Request Total	Legal Process Request Total Accounts	Legal Process Request Total Percentage	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Emergency Disclosures Accounts	Emergency Disclosures	Emergency Disclosures Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III,Title III Accounts	Title III Percentage	Title III	Title III Accounts	NSLs	NSLs Accounts
 ALB	Albania	3.0	5.0	36.0	65.0	76.625	36.0	65.0	76.625	0.0	0.0	0.0																								
 DZA	Algeria	1	1	0	0	0%	0	0	0%	0	0	0%																								
 ARG	Argentina	868.0	1297.0	1824.0	2426.0	74.46000000000001	1733.0	2302.0	74.12	91.0	124.0	72.255																								
@@ -100,24 +100,24 @@ GBR	United Kingdom	849.0	1431.0	11835.0	15151.0	87.66	10107.0	12462.0	89.0	1728.
 USA	United States	69434.0	121281.0	49868.0	80443.0	82.055	47066.0	76672.0	82.58500000000001	2802.0	3771.0	76.41				28478.0	44825.0	83.35499999999999	13062.0	24382.0	80.485	540.0	632.0	70.505	1215.0	2413.0	89.38	3551.0	4088.0	81.75999999999999		67.39	220.0	332.0		
 URY	Uruguay	1	1	0	0	0%	0	0	0%	0	0	0%																								
 VNM	Vietnam	1	1	0	0	0%	0	0	0%	0	0	0%																								
-LVA	Latvia	1	1	0	0	0%	0	0	0%	0	0	0%																								
+PAL	Palestine	0	0	1	1	0%	1	1	0%	0	0	0%																								
 UKR	Ukraine	1	1	6	6	100.00%	0	0	0%	6	6	100.00%																								
+BFA	Burkina Faso	1	1	0	0	0%	0	0	0%	0	0	0%																								
 KEN	Kenya	0	0	1	1	0%	1	1	0%	0	0	0%																								
-187	St. Lucia	1	1	0	0	0%	0	0	0%	0	0	0%																								
-SEN	Senegal	1	1	3	4	0%	3	4	0%	0	0	0%																								
-MMR	Myanmar	0	0	1	1	0%	1	1	0%	0	0	0%																								
+TTO	Trinidad and Tobago	3	24	0	0	0%	0	0	0%	0	0	0%																								
+ISL	Iceland	1	1	1	1	0%	1	1	0%	0	0	0%																								
 MOZ	Mozambique	0	0	1	1	100.00%	0	0	100.00%	1	1	100.00%																								
 MDG	Madagascar	0	0	1	1	0%	1	1	0%	0	0	0%																								
-PRY	Paraguay	1	1	7	7	14.29%	3	2	0%	4	5	25.00%																								
-TTO	Trinidad and Tobago	3	24	0	0	0%	0	0	0%	0	0	0%																								
-NER	Niger	0	0	1	1	100.00%	0	0	100.00%	1	1	100.00%																								
-KWT	Kuwait	1	1	3	3	0%	2	2	0%	1	1	0%																								
-BFA	Burkina Faso	1	1	0	0	0%	0	0	0%	0	0	0%																								
-BTN	Bhutan	0	0	1	1	100.00%	0	0	100.00%	1	1	100.00%																								
-CMR	Cameroon	1	1	1	1	0%	1	1	0%	0	0	0%																								
-ISL	Iceland	1	1	1	1	0%	1	1	0%	0	0	0%																								
 198	Andorra	0	0	1	1	0%	1	1	0%	0	0	0%																								
-PAL	Palestine	0	0	1	1	0%	1	1	0%	0	0	0%																								
-191	Federated States of Micronesia	1	1	0	0	0%	0	0	0%	0	0	0%																								
+SEN	Senegal	1	1	3	4	0%	3	4	0%	0	0	0%																								
+KWT	Kuwait	1	1	3	3	0%	2	2	0%	1	1	0%																								
+CMR	Cameroon	1	1	1	1	0%	1	1	0%	0	0	0%																								
+BTN	Bhutan	0	0	1	1	100.00%	0	0	100.00%	1	1	100.00%																								
 193	Saint Vincent and the Grenadines	1	2	0	0	0%	0	0	0%	0	0	0%																								
 235	Vatican City	0	0	1	1	0%	1	1	0%	0	0	0%																								
+NER	Niger	0	0	1	1	100.00%	0	0	100.00%	1	1	100.00%																								
+PRY	Paraguay	1	1	7	7	14.29%	3	2	0%	4	5	25.00%																								
+LVA	Latvia	1	1	0	0	0%	0	0	0%	0	0	0%																								
+191	Federated States of Micronesia	1	1	0	0	0%	0	0	0%	0	0	0%																								
+MMR	Myanmar	0	0	1	1	0%	1	1	0%	0	0	0%																								
+187	St. Lucia	1	1	0	0	0%	0	0	0%	0	0	0%																								

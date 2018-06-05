@@ -1,4 +1,4 @@
-Id	Country	Preservation Requests	Preservation Accounts Preserved	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Legal Process Request Total	Legal Process Request Total Accounts	Legal Process Request Total Percentage	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Emergency Disclosures Accounts	Emergency Disclosures	Emergency Disclosures Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III,Title III Accounts	Title III Percentage	Title III	Title III Accounts	NSLs	NSLs Accounts
+id	Country	Preservation Requests	Preservation Accounts Preserved	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Legal Process Request Total	Legal Process Request Total Accounts	Legal Process Request Total Percentage	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Emergency Disclosures Accounts	Emergency Disclosures	Emergency Disclosures Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III,Title III Accounts	Title III Percentage	Title III	Title III Accounts	NSLs	NSLs Accounts
 AFG	Afghanistan			2.0	2.0	0.0																														
 ALB	Albania			20.0	40.0	50.0																														
 ARG	Argentina			736.0	1072.0	40.22																														
@@ -82,18 +82,18 @@ TUR	Turkey			318.0	527.0	65.845
 ARE	United Arab Emirates			8.0	8.0	0.0																														
 GBR	United Kingdom			4476.0	5509.0	73.39500000000001																														
 USA	United States			29707.0	45398.0	79.64500000000001				1191.0	1362.0	54.235				15593.0	24625.0	84.28	10725.0	16766.0	75.71000000000001	545.0	741.0	63.28	452.0	615.0	82.225	1192.0	1273.0	88.07		91.66499999999999	9.0	16.0		
-UKR	Ukraine			1	1	0%																														
-IDN	Indonesia			5	21	40.00%																														
-JOR	Jordan			3	3	33.33%																														
-KEN	Kenya			2	3	0%																														
-SVK	Slovakia			5	5	20.00%																														
-SRB	Serbia			15	25	60.00%																														
-MMR	Myanmar			0	0	0%																														
-KAZ	Kazakhstan			2	5	0%																														
-DZA	Algeria			1	1	0%																														
-SVN	Slovenia			3	3	33.33%																														
-URY	Uruguay			2	2	0%																														
-174	Maldives			3	3	66.67%																														
-168	Macau			1	1	0%																														
-198	Andorra			3	3	33.33%																														
 TUN	Tunisia			2	2	0%																														
+UKR	Ukraine			1	1	0%																														
+JOR	Jordan			3	3	33.33%																														
+SVN	Slovenia			3	3	33.33%																														
+KEN	Kenya			2	3	0%																														
+IDN	Indonesia			5	21	40.00%																														
+URY	Uruguay			2	2	0%																														
+MMR	Myanmar			0	0	0%																														
+SVK	Slovakia			5	5	20.00%																														
+198	Andorra			3	3	33.33%																														
+KAZ	Kazakhstan			2	5	0%																														
+174	Maldives			3	3	66.67%																														
+SRB	Serbia			15	25	60.00%																														
+DZA	Algeria			1	1	0%																														
+168	Macau			1	1	0%																														
