@@ -23,8 +23,8 @@ var margin = {
     height = 500 - margin.top - margin.bottom;
 
 var color = d3.scaleThreshold()
-    .domain([ 1, 50, 300, 600, 1000, 4000, 8000, 17000, 35000, 70000])
-    .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(0,76,153)", "rgb(0,0,153)"]);
+    .domain([ 0, 50, 300, 600, 1000, 4000, 8000, 17000, 35000, 70000])
+    .range(["rgb(0,0,0)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(0,76,153)", "rgb(0,0,153)"]);
 
 var path = d3.geoPath();
 
@@ -53,7 +53,7 @@ function ready(error, data, requests, accounts, rate) {
     var accountsById = {};
     var rateById = {};
     
-    requests = requests.filter(r => r['Year'] == '2017')
+    requests = requests.filter(r => r['Year'] == '2017');
 
     requests.forEach(function (d) {
         requestsById[d.id] = +d['Total Data Requests'];
@@ -115,15 +115,22 @@ function ready(error, data, requests, accounts, rate) {
         .attr("class", "legendLinear")
         .attr("transform", "translate(30,330)");
 
+   var legendIndex = 0;
    var legendLinear = d3.legendColor()
      .shapeWidth(45)
      .shapeHeight(10)
      .title("Government Data Requests")
-     .cells([.001, .10, .25, .5,1])
      .orient('vertical')
      .scale(color)
-      .labelFormat(d3.format("d"));
-
+     .labelFormat((d) => {
+         if (isNaN(d))
+            return 0
+        legendIndex++;
+        if (legendIndex % 2 == 0)
+            return d + 1;
+        return d;
+         
+     });
   
             
 
