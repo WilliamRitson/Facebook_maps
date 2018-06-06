@@ -2,23 +2,22 @@ var format = d3.format(",");
 
 // Set tooltips
 var tip = d3.tip()
-    .attr('class', 'd3-tip')
+    .attr("class", "d3-tip")
     .offset([100, 0])
     .html(function (d) {
         if (isNaN(d.requests) || (d.requests == 0)) {
             return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + "No Requests Made" + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + "Not Applicable" + "</span>";
-        }
-        else {
+        } else {
             return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + format(Math.round(d.requests * d.rate / 100)) + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + format(d.rate) + "%" + "</span>";
         }
-    })
+    });
 
 var margin = {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-},
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    },
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -26,14 +25,12 @@ var color = d3.scaleThreshold()
     .domain([0, 50, 300, 600, 1000, 4000, 8000, 17000, 35000, 70000])
     .range(["rgb(0,0,0)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(0,76,153)", "rgb(0,0,153)"]);
 
-var path = d3.geoPath();
-
 var svg = d3.select("body")
     .append("svg")
     .attr("width", width)
     .attr("height", height)
-    .append('g')
-    .attr('class', 'map');
+    .append("g")
+    .attr("class", "map");
 
 var projection = d3.geoMercator()
     .scale(130)
@@ -49,21 +46,19 @@ queue()
     .await(ready);
 
 
-    // Percentage merge still has bugs
+// Percentage merge still has bugs
 function mergeYears(data, startYear, endYear) {
     let countries = new Map();
     for (let year = startYear; year <= endYear; year++) {
-        let yearData = data.filter(r => r['Year'] == year);
+        let yearData = data.filter(r => r["Year"] == year);
         for (let country of yearData) {
             if (countries.has(country.id)) {
                 let existing = countries.get(country.id);
-                existing['Total Data Requests'] = +existing['Total Data Requests'] + +country['Total Data Requests'];
-                existing['Total Users/Accounts Requested'] = +existing['Total Users/Accounts Requested'] + +country['Total Users/Accounts Requested'];
-                existing['Percent Requests Where Some Data Produced'] = 
-                    (
-                        +existing['Percent Requests Where Some Data Produced'] * existing.datapoints + 
-                        +country['Percent Requests Where Some Data Produced']) / ( existing.datapoints + 1
-                    );
+                existing["Total Data Requests"] = +existing["Total Data Requests"] + +country["Total Data Requests"];
+                existing["Total Users/Accounts Requested"] = +existing["Total Users/Accounts Requested"] + +country["Total Users/Accounts Requested"];
+                existing["Percent Requests Where Some Data Produced"] =
+                    (+existing["Percent Requests Where Some Data Produced"] * existing.datapoints +
+                        +country["Percent Requests Where Some Data Produced"]) / (existing.datapoints + 1);
                 existing.datapoints += 1;
                 countries.set(country.id, existing);
             } else {
@@ -83,15 +78,15 @@ function ready(error, data, requests, accounts, rate) {
     requests = mergeYears(requests, 2013, 2017);
 
     requests.forEach(function (d) {
-        requestsById[d.id] = +d['Total Data Requests'];
-        accountsById[d.id] = +d['Total Users/Accounts Requested'];
-        rateById[d.id] = +d['Percent Requests Where Some Data Produced'];
+        requestsById[d.id] = +d["Total Data Requests"];
+        accountsById[d.id] = +d["Total Users/Accounts Requested"];
+        rateById[d.id] = +d["Percent Requests Where Some Data Produced"];
     });
 
     data.features.forEach(function (d) {
-        d.requests = requestsById[d.id]
-        d.accounts = accountsById[d.id]
-        d.rate = rateById[d.id]
+        d.requests = requestsById[d.id];
+        d.accounts = accountsById[d.id];
+        d.rate = rateById[d.id];
     });
 
     //Changes to country color White
@@ -105,13 +100,13 @@ function ready(error, data, requests, accounts, rate) {
             let colorVal = requestsById[d.id] != 0 ? requestsById[d.id] : NaN;
             return color(colorVal);
         })
-        .style('stroke', 'white')
-        .style('stroke-width', 1.5)
+        .style("stroke", "white")
+        .style("stroke-width", 1.5)
         .style("opacity", 0.8)
         // tooltips
         .style("stroke", "white")
-        .style('stroke-width', 0.3)
-        .on('mouseover', function (d) {
+        .style("stroke-width", 0.3)
+        .on("mouseover", function (d) {
             tip.show(d);
 
             d3.select(this)
@@ -119,7 +114,7 @@ function ready(error, data, requests, accounts, rate) {
                 .style("stroke", "white")
                 .style("stroke-width", 3);
         })
-        .on('mouseout', function (d) {
+        .on("mouseout", function (d) {
             tip.hide(d);
 
             d3.select(this)
@@ -147,11 +142,11 @@ function ready(error, data, requests, accounts, rate) {
         .shapeWidth(45)
         .shapeHeight(10)
         .title("Government Data Requests")
-        .orient('vertical')
+        .orient("vertical")
         .scale(color)
         .labelFormat((d) => {
             if (isNaN(d))
-                return 0
+                return 0;
             legendIndex++;
             if (legendIndex % 2 == 0)
                 return d + 1;
