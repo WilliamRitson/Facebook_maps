@@ -23,7 +23,7 @@ var margin = {
 
 var color = d3.scaleThreshold()
     .domain([0, 50, 300, 600, 1000, 4000, 8000, 17000, 35000, 70000])
-    .range(["rgb(0,0,0)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(0,76,153)", "rgb(0,0,153)"]);
+    .range(["rgb(150,150,150)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(0,76,153)", "rgb(0,0,153)"]);
 
 var svg = d3.select("body")
     .append("svg")
@@ -97,7 +97,7 @@ function ready(error, data, requests, accounts, rate) {
         .enter().append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            let colorVal = requestsById[d.id] != 0 ? requestsById[d.id] : NaN;
+            let colorVal = requestsById[d.id] == 0 ||  isNaN(requestsById[d.id] ) ? -1 : requestsById[d.id];
             return color(colorVal);
         })
         .style("stroke", "white")
