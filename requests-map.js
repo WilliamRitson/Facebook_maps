@@ -44,12 +44,6 @@ var path = d3.geoPath().projection(projection);
 
 svg.call(tip);
 
-queue()
-    .defer(d3.json, "world_countries.json")
-    .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
-    .await(ready);
-
-
 // Percentage merge still has bugs
 function mergeYears(data, startYear, endYear) {
     let countries = new Map();
@@ -66,20 +60,22 @@ function mergeYears(data, startYear, endYear) {
                 existing.datapoints += 1;
                 countries.set(country.id, existing);
             } else {
-                country.datapoints = 1;
-                countries.set(country.id, country);
+                let copy =  Object.assign({}, country);
+                copy.datapoints = 1;
+                countries.set(copy.id, copy);
             }
         }
     }
     return Array.from(countries.values());
 }
 
-function ready(error, data, requests) {
+
+function setData(geoData, request_data) {
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
 
-    requests = mergeYears(requests, 2013, 2017);
+    var requests = mergeYears(request_data, 2013, 2017);
 
     requests.forEach(function (d) {
         requestsById[d.id] = +d["requests"];
@@ -87,17 +83,20 @@ function ready(error, data, requests) {
         rateById[d.id] = +d["percentAccepted"];
     });
 
-    data.features.forEach(function (d) {
+    geoData.features.forEach(function (d) {
         d.requests = requestsById[d.id];
         d.accounts = accountsById[d.id];
         d.rate = rateById[d.id];
     });
 
+    // clear
+    svg.selectAll("*").remove();
+
     //Changes to country color White
     svg.append("g")
         .attr("class", "countries")
         .selectAll("path")
-        .data(data.features)
+        .data(geoData.features)
         .enter().append("path")
         .attr("d", path)
         .style("fill", function (d) {
@@ -128,7 +127,7 @@ function ready(error, data, requests) {
         });
 
     svg.append("path")
-        .datum(topojson.mesh(data.features, function (a, b) {
+        .datum(topojson.mesh(geoData.features, function (a, b) {
             return a.id !== b.id;
         }))
         // .datum(topojson.mesh(data.features, function(a, b) { return a !== b; }))
@@ -163,6 +162,23 @@ function ready(error, data, requests) {
     svg.select(".legendLinear")
         .call(legendLinear);
 
+}
+
+queue()
+    .defer(d3.json, "world_countries.json")
+    .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
+    .defer(d3.tsv, "data/google_output/all_google.tsv")
+    .await(ready);
 
 
+function ready(error, geoData, facebookRequets, googleRequets) {
+    document.getElementById("select-facebook").addEventListener("click", () => {
+        setData(geoData, facebookRequets);
+    });
+
+    document.getElementById("select-google").addEventListener("click", () => {
+        setData(geoData, googleRequets);
+    });
+
+    setData(geoData, facebookRequets);
 }
