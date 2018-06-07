@@ -1,6 +1,6 @@
 id	Country	Preservation Requests	Preservation Accounts Preserved	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Legal Process Request Total	Legal Process Request Total Accounts	Legal Process Request Total Percentage	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Emergency Disclosures Accounts	Emergency Disclosures	Emergency Disclosures Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III,Title III Accounts	Title III Percentage	Title III	Title III Accounts	NSLs	NSLs Accounts
 ALB	Albania			13.0	29.0	83.75																														
-198	Andorra			2	2	0%																														
+198	Andorra			2.0	2.0	0.0																														
 ARG	Argentina			1460.0	1741.0	58.715																														
 ARM	Armenia			13.0	14.0	77.5																														
 AUS	Australia			1495.0	1590.0	69.255																														
@@ -8,16 +8,16 @@ AUT	Austria			112.0	121.0	34.769999999999996
 BGD	Bangladesh			15.0	34.0	8.335																														
 BEL	Belgium			571.0	731.0	72.96000000000001																														
 BIH	Bosnia and Herzegovina			22.0	45.0	31.765																														
-BWA	Botswana			2	2	0%																														
+BWA	Botswana			2.0	2.0	0.0																														
 BRA	Brazil			2920.0	4627.0	40.605000000000004																														
 BRN	Brunei			3.0	3.0	25.0																														
-BGR	Bulgaria			2	2	100.00%																														
-KHM	Cambodia			1	1	0%																														
+BGR	Bulgaria			2.0	2.0	100.0																														
+KHM	Cambodia			1.0	1.0	0.0																														
 CAN	Canada			837.0	1063.0	79.205																														
 CHL	Chile			595.0	991.0	61.394999999999996																														
-CHN	China			0	0	0%																														
+CHN	China			0.0	0.0	0.0																														
 COL	Colombia			267.0	434.0	53.625																														
-CRI	Costa Rica			1	1	0%																														
+CRI	Costa Rica			1.0	1.0	0.0																														
 HRV	Croatia			29.0	33.0	67.675																														
 CYP	Cyprus			18.0	20.0	11.25																														
 CZE	Czech Republic			51.0	59.0	57.355000000000004																														
@@ -43,7 +43,7 @@ ITA	Italy			3341.0	5592.0	50.57
 JPN	Japan			13.0	14.0	36.11																														
 JOR	Jordan			27.0	35.0	14.645																														
 KAZ	Kazakhstan			5.0	6.0	0.0																														
-KEN	Kenya			5	6	20.00%																														
+KEN	Kenya			5.0	6.0	20.0																														
 OSA	Kosovo			22.0	46.0	43.75																														
 KWT	Kuwait			4.0	9.0	16.665																														
 LBN	Lebanon			9.0	15.0	35.715																														
@@ -56,15 +56,15 @@ MYS	Malaysia			17.0	25.0	75.96000000000001
 173	Malta			303.0	361.0	71.62																														
 MEX	Mexico			724.0	1296.0	65.425																														
 MDA	Moldova			6.0	3.0	10.0																														
-212	Monaco			1	1	0%																														
-MNG	Mongolia			3	3	0%																														
+212	Monaco			1.0	1.0	0.0																														
+MNG	Mongolia			3.0	3.0	0.0																														
 MNE	Montenegro			20.0	60.0	56.865																														
-222	Nauru			1	1	0%																														
+222	Nauru			1.0	1.0	0.0																														
 NLD	Netherlands			271.0	301.0	72.74000000000001																														
 NZL	New Zealand			313.0	358.0	63.545																														
 NOR	Norway			55.0	80.0	54.91																														
 PAK	Pakistan			663.0	981.0	62.39																														
-PAN	Panama			1	38	0%																														
+PAN	Panama			1.0	38.0	0.0																														
 PER	Peru			46.0	79.0	58.135000000000005																														
 PHL	Philippines			9.0	11.0	40.0																														
 POL	Poland			1103.0	1071.0	37.55																														
@@ -79,28 +79,28 @@ SVN	Slovenia			6.0	5.0	10.0
 ZAF	South Africa			4.0	5.0	0.0																														
 KOR	South Korea			77.0	96.0	39.0																														
 ESP	Spain			1155.0	1947.0	43.144999999999996																														
-LKA	Sri Lanka			1	1	100.00%																														
+LKA	Sri Lanka			1.0	1.0	100.0																														
 SWE	Sweden			498.0	748.0	87.565																														
 CHE	Switzerland			79.0	100.0	38.225																														
 TWN	Taiwan			578.0	931.0	62.51																														
 THA	Thailand			5.0	5.0	0.0																														
-TUN	Tunisia			1	48	100.00%																														
+TUN	Tunisia			1.0	48.0	100.0																														
 TUR	Turkey			811.0	978.0	85.85																														
-UGA	Uganda			1	2	0%																														
+UGA	Uganda			1.0	2.0	0.0																														
 UKR	Ukraine			15.0	16.0	30.555																														
 ARE	United Arab Emirates			7.0	14.0	40.0																														
 GBR	United Kingdom			7574.0	9967.0	80.095																														
 USA	United States			36812.0	56620.0	80.63				1521.0	2032.0	73.58500000000001				20865.0	32716.0	84.66999999999999	10663.0	16609.0	75.31	609.0	728.0	70.48	838.0	1776.0	79.385	2030.0	2360.0	79.295		80.345	286.0	399.0		
-VNM	Vietnam			1	2	0%																														
-GEO	Georgia			4	4	75.00%																														
-MMR	Myanmar			0	0	0%																														
-TZA	Tanzania			1	1	0%																														
-AZE	Azerbaijan			4	4	0%																														
-193	Saint Vincent and the Grenadines			1	3	0%																														
-168	Macau			2	2	50.00%																														
-BLR	Belarus			1	1	0%																														
-SDN	Sudan			5	6	0%																														
-BHS	The Bahamas			1	0	0%																														
-AFG	Afghanistan			1	5	0%																														
-NPL	Nepal			1	1	0%																														
-NGA	Nigeria			1	96	100.00%																														
+AFG	Afghanistan			1.0	5.0	0.0																														
+AZE	Azerbaijan			4.0	4.0	0.0																														
+BLR	Belarus			1.0	1.0	0.0																														
+GEO	Georgia			4.0	4.0	75.0																														
+168	Macau			2.0	2.0	50.0																														
+MMR	Myanmar			0.0	0.0	0.0																														
+NPL	Nepal			1.0	1.0	0.0																														
+NGA	Nigeria			1.0	96.0	100.0																														
+193	Saint Vincent and the Grenadines			1.0	3.0	0.0																														
+SDN	Sudan			5.0	6.0	0.0																														
+TZA	Tanzania			1.0	1.0	0.0																														
+BHS	The Bahamas			1.0	0.0	0.0																														
+VNM	Vietnam			1.0	2.0	0.0																														

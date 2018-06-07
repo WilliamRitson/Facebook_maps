@@ -20,10 +20,9 @@ def parse(str):
     try:
         return float(str.replace('%', '').replace(',', ''))
     except:
-        return str
+        return str.replace('%', '')
 
 def average(*arg):
-    print('avg', arg)
     return sum(arg) / len(arg)
 
 def first(a, b):
@@ -73,9 +72,16 @@ merge_ops = [
     ('NSLs Accounts', add)
 ]
 
+def parse_country(c):
+    for key, op in merge_ops:
+        if key in c and c[key] != '':
+            c[key] = parse(c[key])
+        else:
+            c[key] = ''
+    return c
+    
 def merge_country(c1, c2):
     for key, op in merge_ops:
-        print(key)
         if key in c1 and c1[key] != '' and key in c2 and c2[key] != '':
             c1[key] = op(
                 parse(c1[key]), 
@@ -103,10 +109,10 @@ def merge_sets(d1, d2):
             results.append(merge_country(country, d2_map[name]))
             d2_map.pop(name)
         else:
-            results.append(country)
+            results.append(parse_country(country))
     
     for name in d2_map:
-        results.append(d2_map[name])
+        results.append(parse_country(d2_map[name]))
 
     return results
 
