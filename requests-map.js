@@ -1,3 +1,6 @@
+import makeLineGraph from "./line-graph";
+
+
 var format = d3.format(",");
 
 // Set tooltips
@@ -7,11 +10,9 @@ var tip = d3.tip()
     .html(function (d) {
         if (isNaN(d.requests) || (d.requests == 0)) {
             return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + "No Requests Made" + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + "Not Applicable" + "</span>";
-        }
-        else if(isNaN(d.rate)){
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>"  + "0%" + "</span>";
-        }
-        else {
+        } else if (isNaN(d.rate)) {
+            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + "0%" + "</span>";
+        } else {
             return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + format(Math.round(d.requests * d.rate / 100)) + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + format(d.rate) + "%" + "</span>";
         }
     });
@@ -60,7 +61,7 @@ function mergeYears(data, startYear, endYear) {
                 existing.datapoints += 1;
                 countries.set(country.id, existing);
             } else {
-                let copy =  Object.assign({}, country);
+                let copy = Object.assign({}, country);
                 copy.datapoints = 1;
                 countries.set(copy.id, copy);
             }
@@ -100,7 +101,7 @@ function setData(geoData, request_data) {
         .enter().append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            let colorVal = requestsById[d.id] == 0 ||  isNaN(requestsById[d.id] ) ? -1 : requestsById[d.id];
+            let colorVal = requestsById[d.id] == 0 || isNaN(requestsById[d.id]) ? -1 : requestsById[d.id];
             return color(colorVal);
         })
         .style("stroke", "white")
@@ -181,4 +182,5 @@ function ready(error, geoData, facebookRequets, googleRequets) {
     });
 
     setData(geoData, facebookRequets);
+    makeLineGraph(svg, facebookRequets);
 }
