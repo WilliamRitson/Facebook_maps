@@ -74,7 +74,7 @@ function mergeYears(data, startYear, endYear) {
     return Array.from(countries.values());
 }
 
-function ready(error, data, requests, accounts, rate) {
+function ready(error, data, requests) {
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
