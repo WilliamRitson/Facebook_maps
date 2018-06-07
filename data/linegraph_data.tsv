@@ -1,0 +1,120 @@
+id	Country	2013	2014	2015	2016	2017
+AFG	Afghanistan	0	2	1	0	0
+ALB	Albania	12	20	13	36	26
+ARG	Argentina	430	736	1460	1824	2274
+ARM	Armenia	1	5	13	16	14
+AUS	Australia	1149	1439	1495	1418	1476
+AUT	Austria	63	109	112	76	157
+AZE	Azerbaijan	0	0	4	10	1
+163	Bahrain	1	4	0	1	2
+BGD	Bangladesh	1	12	15	59	104
+BEL	Belgium	304	448	571	819	1065
+BTN	Bhutan	1	0	0	1	4
+BIH	Bosnia and Herzegovina	8	11	22	17	45
+BWA	Botswana	4	1	2	1	1
+BRA	Brazil	1880	2519	2920	3570	4585
+BGR	Bulgaria	3	3	2	20	34
+KHM	Cambodia	0	2	0	1	0
+CMR	Cameroon	0	0	0	1	1
+CAN	Canada	366	542	837	1777	2224
+CHL	Chile	445	595	595	760	749
+COL	Colombia	48	119	267	419	606
+CRI	Costa Rica	13	4	1	8	1
+HRV	Croatia	9	40	29	113	164
+CYP	Cyprus	6	33	18	21	18
+CZE	Czech Republic	24	33	51	116	164
+DNK	Denmark	23	46	66	63	67
+DOM	Dominican Republic	0	33	178	180	313
+ECU	Ecuador	4	3	46	49	85
+EGY	Egypt	14	10	6	1	1
+SLV	El Salvador	2	0	0	9	26
+EST	Estonia	6	13	35	41	79
+FIN	Finland	23	46	55	72	119
+FRA	France	3208	4343	5231	8241	8949
+GEO	Georgia	3	1	4	45	24
+DEU	Germany	3573	4669	5484	8117	10278
+GHA	Ghana	0	0	0	5	1
+GRC	Greece	237	245	348		767
+GTM	Guatemala	0	1	5	60	148
+HND	Honduras	0	0	0	2	2
+HKG	Hong Kong	26	59	184	321	276
+HUN	Hungary	63	185	363	358	505
+ISL	Iceland	1	2	3	1	4
+IND	India	6843	10032	10676	13613	22024
+IDN	Indonesia	0	5	10	30	30
+IRQ	Iraq	0	0	2	1	10
+IRL	Ireland	69	88	76	168	136
+ISR	Israel	242	343	468	710	837
+ITA	Italy	3404	3643	3341	3789	4323
+CIV	Ivory Coast	5	0	0	2	2
+JAM	Jamaica	0	0	0	0	0
+JPN	Japan	1	11	13	15	18
+JOR	Jordan	0	3	27	80	148
+KAZ	Kazakhstan	2	2	5	0	0
+KEN	Kenya	0	2	5	1	8
+OSA	Kosovo	3	11	22	18	39
+KWT	Kuwait	4	8	4	3	13
+LVA	Latvia	0	0	0	0	43
+LBN	Lebanon	12	0	9	12	7
+210	Liechtenstein	0	3	6	0	2
+LTU	Lithuania	15	20	67	79	132
+LUX	Luxembourg	2	5	7	2	16
+168	Macau	1	1	2	26	17
+MKD	Macedonia	15	15	29	68	90
+MDG	Madagascar	0	0	0	1	2
+MYS	Malaysia	23	36	17	41	45
+174	Maldives	0	3	4	19	49
+MLI	Mali	0	0	0	0	0
+173	Malta	170	178	303	319	295
+153	Mauritius	0	0	0	0	1
+MEX	Mexico	203	430	724	1162	2022
+MDA	Moldova	0	7	6	7	7
+212	Monaco	0	1	1	2	2
+MNG	Mongolia	2	0	3	0	10
+MNE	Montenegro	2	6	20	18	21
+MAR	Morocco	0	0	0	0	28
+MMR	Myanmar	0	0	0	1	4
+NPL	Nepal	5	4	1	22	76
+NLD	Netherlands	34	117	271	1080	1479
+NZL	New Zealand	186	211	313	174	122
+NGA	Nigeria	0	0	1	9	7
+NOR	Norway	31	46	55	54	70
+OMN	Oman	3	1	0	0	2
+PAK	Pakistan	161	216	663	1721	2370
+PAL	Palestine	4	1	0	1	10
+PAN	Panama	2	0	1	11	12
+PRY	Paraguay	3	0	7	0	12
+PER	Peru	15	22	46	57	110
+PHL	Philippines	8	13	9	10	58
+POL	Poland	453	593	1103	2051	2952
+PRT	Portugal	325	659	1033	1523	1473
+QAT	Qatar	6	2	2	2	7
+ROU	Romania	27	30	36	54	113
+RUS	Russia	2	2	5	4	21
+SAU	Saudi Arabia	0	0	0	2	1
+SEN	Senegal	0	2	3	3	2
+SRB	Serbia	2	15	46	107	148
+SGP	Singapore	248	306	412	418	448
+SVK	Slovakia	0	5	0	42	47
+SVN	Slovenia	9	3	6	27	49
+ZAF	South Africa	17	4	4	7	10
+KOR	South Korea	8	27	77	162	272
+ESP	Spain	883	1014	1155	1644	2365
+LKA	Sri Lanka	1	0	1	3	8
+SDN	Sudan	4	3	5	12	21
+SWE	Sweden	143	460	498	615	650
+CHE	Switzerland	66	71	79	88	132
+TWN	Taiwan	422	456	578	963	1050
+TZA	Tanzania	0	0	1	0	2
+THA	Thailand	4	4	5	7	11
+TLS	Timor-Leste	0	0	0	0	0
+TTO	Trinidad and Tobago	0	0	0	0	0
+TUR	Turkey	225	318	811	1452	1481
+UKR	Ukraine	0	1	15	6	56
+ARE	United Arab Emirates	2	8	7	15	21
+GBR	United Kingdom	3881	4476	7574	11835	14300
+USA	United States	24098	29707	36812	49868	65458
+URY	Uruguay	1	2	0	0	50
+VNM	Vietnam	0	0	1	0	12
+BFA	Burkina Faso	0	0	0	0	2
+DZA	Algeria	0	0	1	0	1
