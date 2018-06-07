@@ -46,7 +46,7 @@ svg.call(tip);
 
 queue()
     .defer(d3.json, "world_countries.json")
-    .defer(d3.tsv, "data/facebook_output/all.tsv")
+    .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
     .await(ready);
 
 
@@ -54,15 +54,15 @@ queue()
 function mergeYears(data, startYear, endYear) {
     let countries = new Map();
     for (let year = startYear; year <= endYear; year++) {
-        let yearData = data.filter(r => r["Year"] == year);
+        let yearData = data.filter(r => r.year == year);
         for (let country of yearData) {
             if (countries.has(country.id)) {
                 let existing = countries.get(country.id);
-                existing["Total Data Requests"] = +existing["Total Data Requests"] + +country["Total Data Requests"];
-                existing["Total Users/Accounts Requested"] = +existing["Total Users/Accounts Requested"] + +country["Total Users/Accounts Requested"];
-                existing["Percent Requests Where Some Data Produced"] =
-                    (+existing["Percent Requests Where Some Data Produced"] * existing.datapoints +
-                        +country["Percent Requests Where Some Data Produced"]) / (existing.datapoints + 1);
+                existing["requests"] = +existing["requests"] + +country["requests"];
+                existing["accounts"] = +existing["accounts"] + +country["accounts"];
+                existing["percentAccepted"] =
+                    (+existing["percentAccepted"] * existing.datapoints +
+                        +country["percentAccepted"]) / (existing.datapoints + 1);
                 existing.datapoints += 1;
                 countries.set(country.id, existing);
             } else {
@@ -82,9 +82,9 @@ function ready(error, data, requests) {
     requests = mergeYears(requests, 2013, 2017);
 
     requests.forEach(function (d) {
-        requestsById[d.id] = +d["Total Data Requests"];
-        accountsById[d.id] = +d["Total Users/Accounts Requested"];
-        rateById[d.id] = +d["Percent Requests Where Some Data Produced"];
+        requestsById[d.id] = +d["requests"];
+        accountsById[d.id] = +d["accounts"];
+        rateById[d.id] = +d["percentAccepted"];
     });
 
     data.features.forEach(function (d) {
