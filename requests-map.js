@@ -118,7 +118,7 @@ function setData(geoData, request_data) {
 
             d3.select(this)
                 .style("opacity", 1)
-                .style("stroke", "white")
+                .style("stroke", "rgb(175,238,238)")
                 .style("stroke-width", 3);
         })
         .on("mouseout", function (d) {
