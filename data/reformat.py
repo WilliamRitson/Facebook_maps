@@ -5,8 +5,6 @@ import re
 import sys
 import os
 
-print(sys.version)
-
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -32,68 +30,70 @@ def add(a, b):
     return a + b
 
 
+output_fields = ['year', 'id', 'country', 'requests', 'accounts', 'percentAccepted']
+facebook_output_map = {
+    'year': 'year', 
+    'Year': 'year', 
+    'id': 'id', 
+    'Country': 'country', 
+    'Total Data Requests': 'requests', 
+    'Total Users/Accounts Requested': 'accounts', 
+    'Percent Requests Where Some Data Produced': 'percentAccepted'
+}
+
+
+google_output_map = {
+    'Year': 'year',
+    'Country': 'country',
+    'User Data Requests': 'requests',
+    'Users/Accounts Specified': 'accounts',
+    'Percentage of requests where some data produced': 'percentAccepted',
+}
+
+def remap_fields(data, remap):
+    
+    for datum in data:
+        keys = list(datum.keys())
+        for key in keys:
+            if key in remap and key != remap[key]:
+                datum[remap[key]] =  datum[key]
+                datum.pop(key)
+            
+
+
+
 merge_ops = [
     ('id', first),
     ('Country', first),
-    ('Preservation Requests', add),
-    ('Preservation Accounts Preserved', add),
     ('Total Data Requests', add),
     ('Total Users/Accounts Requested', add),
-    ('Percent Requests Where Some Data Produced', average),
-    ('Legal Process Request Total', add),
-    ('Legal Process Request Total Accounts', add),
-    ('Legal Process Request Total Percentage', average),
-    ('Emergency Request Total', add),
-    ('Emergency Request Total Accounts', add),
-    ('Emergency Request Total Percentage', average),
-    ('Emergency Disclosures Accounts', add),
-    ('Emergency Disclosures', add),
-    ('Emergency Disclosures Percentage', average),
-    ('Search Warrant', add),
-    ('Search Warrant Accounts', add),
-    ('Search Warrant Percentage', average),
-    ('Subpoena', add),
-    ('Subpoena Accounts', add),
-    ('Subpoena Percentage', average),
-    ('Court Order (Other)', add),
-    ('Court Order (Other) Accounts', add),
-    ('Court Order (Other) Percentage', average),
-    ('Court Order (18 USC 2703(d))', add),
-    ('Court Order (18 USC 2703(d)) Accounts', add),
-    ('Court Order (18 USC 2703(d)) Percentage', average),
-    ('Pen Register/Trap and Trace', add),
-    ('Pen Register/Trap and Trace Accounts', add),
-    ('Pen Register/Trap and Trace Percentage', average),
-    ('Title III,Title III Accounts', add),
-    ('Title III Percentage', average),
-    ('Title III', add), 
-    ('Title III Accounts', add),
-    ('NSLs', add),
-    ('NSLs Accounts', add)
+    ('Percent Requests Where Some Data Produced', average)
 ]
 
 def parse_country(c):
+    result = {}
     for key, op in merge_ops:
         if key in c and c[key] != '':
-            c[key] = parse(c[key])
+            result[key] = parse(c[key])
         else:
-            c[key] = ''
-    return c
+            result[key] = ''
+    return result
     
 def merge_country(c1, c2):
+    result = {}
     for key, op in merge_ops:
         if key in c1 and c1[key] != '' and key in c2 and c2[key] != '':
-            c1[key] = op(
+            result[key] = op(
                 parse(c1[key]), 
                 parse(c2[key])
             )
         elif key in c1 and c1[key] != '':
-            c1[key] = parse(c1[key])
+            result[key] = parse(c1[key])
         elif key in c2 and c2[key] != '':
-            c1[key] = parse(c2[key])
+            result[key] = parse(c2[key])
         else:
-            c1[key] = ''
-    return c1
+            result[key] = ''
+    return result
 
 
 def merge_sets(d1, d2):
@@ -130,7 +130,6 @@ def extract_data(fn, seperator):
         return data, header
 
 def add_ids(data, id_map):
-
     for country in data:
         name = country['Country']
         if name in id_map:
@@ -179,7 +178,7 @@ for source in sources:
     if not os.path.exists(source['out_dir']):
         os.makedirs(source['out_dir'])
         
-    all = []
+    all_facebook = []
     year = 2013
     for file in source['files']:
         
@@ -191,7 +190,7 @@ for source in sources:
         for country in merged:
             country_with_year = country.copy()
             country_with_year['Year'] = year
-            all.append(country_with_year)
+            all_facebook.append(country_with_year)
 
         headers = []
         for key, op in merge_ops:
@@ -199,5 +198,46 @@ for source in sources:
         
         output_file(merged, source['out_dir'] + '/' + file['output'], headers)
         year += 1
-    output_file(all, source['out_dir'] + '/' + 'all.tsv', ['Year'] + headers)
 
+    remap_fields(all_facebook, facebook_output_map)
+    output_file(all_facebook, source['out_dir'] + '/' + 'all_facebook.tsv', output_fields)
+
+# Google data
+if not os.path.exists('google_output'):
+    os.makedirs('google_output')
+
+google_data, google_headers = extract_data('google_data/google-user-data-requests.csv', ',')
+
+rename = {
+    "Czechia": "Czech Republic",
+    "Bosnia & Herzegovina": "Bosnia and Herzegovina",
+    "Macedonia (FYROM)": "Macedonia",
+    "Sint Maarten": "Saint Martin",
+    "Côte d’Ivoire": "Ivory Coast",
+    "Trinidad & Tobago": "Trinidad and Tobago"
+}
+fields_to_remove = ['Period Ending', 'CLDR Territory Code', 'Legal Process']
+
+year_pattern = re.compile('([0-9]+)-[0-9]+-[0-9]+')
+for country in google_data:
+    if country['Country'] in rename:
+        country['Country'] = rename[country['Country']]
+    
+    country['Year'] = year_pattern.match(country['Period Ending']).group(1)
+
+    for field in fields_to_remove:
+        country.pop(field)
+
+
+headers = ['id', 'Year'] + google_headers
+for field in fields_to_remove:
+    headers.remove(field)
+    
+add_ids(google_data, id_map)
+remap_fields(google_data, google_output_map)
+
+fields = set()
+for country in google_data:
+    fields.update(country.keys())
+
+output_file(google_data, 'google_output/all_google.tsv', output_fields)
