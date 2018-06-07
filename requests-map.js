@@ -6,13 +6,17 @@ var tip = d3.tip()
     .offset([100, 0])
     .html(function (d) {
         if (isNaN(d.requests) || (d.requests == 0)) {
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + "No Requests Made" + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + "Not Applicable" + "</span>";
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>"+":"+ "</td><td align='right'>"+ d.properties.name +"</td></tr><tr><th align='left'># Requests</th><td align='center'>"+":"+ "</td><td align='right'>"+ "No Requests Made" +"</td></tr><tr><th align='left'># Accounts</th><td align='center'>"+":"+ "</td><td align='right'>"+ "0" +"</td></tr><tr><th align='left'>Data Provided</th><td align='center'>"+":"+ "</td><td align='right'>"+ "0" +"</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>"+":"+ "</td><td align='right'>" + "Not Applicable" + "</td></tr></table>"; 
+            
         }
         else if(isNaN(d.rate)){
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>"  + "0%" + "</span>";
+
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>"+":"+ "</td><td align='right'>"+ d.properties.name +"</td></tr><tr><th align='left'># Requests</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.requests) +"</td></tr><tr><th align='left'># Accounts</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.accounts) +"</td></tr><tr><th align='left'>Data Provided</th><td align='center'>"+":"+ "</td><td align='right'>"+ "0" +"</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>"+":"+ "</td><td align='right'>" +"0%"+"</td></tr></table>";
+
         }
         else {
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + format(Math.round(d.requests * d.rate / 100)) + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + format(d.rate) + "%" + "</span>";
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>"+":"+ "</td><td align='right'>"+ d.properties.name +"</td></tr><tr><th align='left'># Requests</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.requests) +"</td></tr><tr><th align='left'># Accounts</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.accounts) +"</td></tr><tr><th align='left'>Data Provided</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(Math.round(d.requests * d.rate / 100)) +"</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(Math.round(d.rate)) +"%"+"</td></tr></table>";
+    
         }
     });
 
