@@ -87,7 +87,6 @@ function getCountriesToGraph() {
 }
 
 function toggleCountry(requestData, country, yearLow, yearHigh) {
-
     if (countriesToGraph.has(country)) {
         countriesToGraph.delete(country);
     } else {
@@ -142,22 +141,33 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .on("mouseover", function (d) {
             tip.show(d);
 
-            d3.select(this)
-                .style("opacity", 1)
-                .style("stroke", "rgb(175,238,238)")
-                .style("stroke-width", 3);
+            if (!countriesToGraph.has(names[d.id])) {
+                d3.select(this)
+                    .style("opacity", 1)
+                    .style("stroke", "rgb(175,238,238)")
+                    .style("stroke-width", 3);
+            }
         })
         .on("mouseout", function (d) {
             tip.hide(d);
 
-            d3.select(this)
-                .style("opacity", 0.8)
-                .style("stroke", "white")
-                .style("stroke-width", 0.3);
+            if (!countriesToGraph.has(names[d.id])) {
+                d3.select(this)
+                    .style("opacity", 0.8)
+                    .style("stroke", "white")
+                    .style("stroke-width", 0.3);
+            }
         })
-        .on("click", d => { 
+        .on("click", function (d) {
             if (requestsById[d.id] > 0)
-                toggleCountry(request_data, names[d.id], yearLow, yearHigh);  
+                toggleCountry(request_data, names[d.id], yearLow, yearHigh);
+
+            if (countriesToGraph.has(names[d.id])) {
+                d3.select(this)
+                    .style("opacity", 1)
+                    .style("stroke", "cornflowerblue")
+                    .style("stroke-width", 3);
+            }
         });
 
     svg.append("path")
