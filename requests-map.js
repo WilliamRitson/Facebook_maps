@@ -24,11 +24,11 @@ var tip = d3.tip()
     });
 
 var margin = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0
-    },
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -44,20 +44,17 @@ var svg = d3.select("#chart-area")
     .append("g")
     .attr("class", "map");
 
-<<<<<<< HEAD
-var svg2 = d3.select("body")
+var svg2 = d3.select("#double-slider")
     .append("svg")
-    .attr("width", 10)
-    .attr("height", 700)
+    //.attr("id", "double-slider")
+    .attr("width", 1000)
+    .attr("height", 100)
     .append("g")
     .attr("class", "map");
 
-var projection = d3.geoMercator()
-    .scale(130)
-=======
+
 var projection = d3.geoNaturalEarth1()
     .scale(170)
->>>>>>> ad01d1c3199ea60581f85d355c1a04670fb71639
     .translate([width / 2, height / 1.5]);
 
 var path = d3.geoPath().projection(projection);
@@ -87,6 +84,41 @@ function mergeYears(data, startYear, endYear) {
         }
     }
     return Array.from(countries.values());
+}
+
+function brushed() {
+    /*
+      The brush attributes are no longer stored 
+      in the brush itself, but rather in the 
+      element it is brushing. That's where much of
+      the confusion around v4's brushes seems to be.
+      The new method is a little difficult to adapt
+      to, but seems more efficient. I think much of
+      this confusion comes from the fact that 
+      brush.extent() still exists, but means
+      something completely different.
+
+      Instead of calling brush.extent() to get the 
+      range of the brush, call 
+      d3.brushSelection(node) on what is being 
+      brushed.
+
+    d3.select('#start-number')
+      .text(Math.round(brush.extent()[0]));
+    d3.select('#end-number')
+      .text(Math.round(brush.extent()[1]));
+    */
+
+
+    var range = d3.brushSelection(this)
+        //.map(xAxisScale);
+        .map(xAxisScale.invert);
+        //.map(brush.invert);
+
+    d3.select("#double-slider")
+        .text(function (d, i) {
+            return Math.round(range[i])
+        })
 }
 
 
@@ -182,19 +214,37 @@ function setData(geoData, request_data) {
     svg.select(".legendLinear")
         .call(legendLinear);
 
-<<<<<<< HEAD
-    }
-    
-    //var x = d3.brushX()
-    var xAxisScale = d3.scaleTime()
-        .domain([new Date(2013), new Date(2017)])
-        .rangeRound([0, width]);
-
-    var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));
-
-    svg.append("g").attr("transform", "translate(0,450)").call(xAxis.ticks(d3.timeYear));
-=======
 }
+
+var padding = 20;
+var endDate = new Date(2017, 0, 1);
+var startDate = new Date(2013, 0, 1);
+
+// var x = d3.brushX()
+var xAxisScale = d3.scaleTime()
+    .domain([startDate, endDate])
+    .rangeRound([0, width]);
+//.rangeRound([0, 1000]);
+
+var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));//.tickSize(0).tickPadding(20);
+
+//.tickSize(0)
+//.tickPadding(20);
+
+svg2.append("g").attr("transform", "translate(20,80)").call(xAxis.ticks(d3.timeYear));
+
+var brush = d3.brushX()
+    //.extent([[startDate, endDate], [100, 1000]])
+    .extent([[0, 0], [100, 1000]])
+    .on("brush", brushed);
+
+var brushg = svg2.append("g")
+    .attr("class", "brush")
+    .call(brush)
+
+// this is breaking the ui
+// brush.move(brushg, [startDate, endDate].map(xAxisScale));
+
 
 queue()
     .defer(d3.json, "world_countries.json")
@@ -232,4 +282,3 @@ function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
 
     makeLineGraph(linegraphData);
 }
->>>>>>> ad01d1c3199ea60581f85d355c1a04670fb71639
