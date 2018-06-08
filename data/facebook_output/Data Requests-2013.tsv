@@ -1,89 +1,89 @@
-id	Country	Preservation Requests	Preservation Accounts Preserved	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced	Legal Process Request Total	Legal Process Request Total Accounts	Legal Process Request Total Percentage	Emergency Request Total	Emergency Request Total Accounts	Emergency Request Total Percentage	Emergency Disclosures Accounts	Emergency Disclosures	Emergency Disclosures Percentage	Search Warrant	Search Warrant Accounts	Search Warrant Percentage	Subpoena	Subpoena Accounts	Subpoena Percentage	Court Order (Other)	Court Order (Other) Accounts	Court Order (Other) Percentage	Court Order (18 USC 2703(d))	Court Order (18 USC 2703(d)) Accounts	Court Order (18 USC 2703(d)) Percentage	Pen Register/Trap and Trace	Pen Register/Trap and Trace Accounts	Pen Register/Trap and Trace Percentage	Title III,Title III Accounts	Title III Percentage	Title III	Title III Accounts	NSLs	NSLs Accounts
-ALB	Albania			12.0	21.0	83.16499999999999																														
-AUT	Austria			63.0	73.0	15.645																														
-AUS	Australia			1149.0	1241.0	64.755																														
-ARG	Argentina			430.0	632.0	22.675																														
-BGD	Bangladesh			1.0	12.0	0.0																														
-180	Barbados			3	3	0%																														
-BIH	Bosnia and Herzegovina			8.0	16.0	37.5																														
-BEL	Belgium			304.0	365.0	67.47																														
-BRA	Brazil			1880.0	2508.0	33.41																														
-BWA	Botswana			4.0	8.0	0.0																														
-BGR	Bulgaria			3.0	3.0	25.0																														
-KHM	Cambodia			2.0	2.0	0.0																														
-CAN	Canada			366.0	436.0	47.0																														
-CHL	Chile			445.0	674.0	66.175																														
-COL	Colombia			48.0	68.0	17.025																														
-CRI	Costa Rica			13.0	20.0	5.555																														
-HRV	Croatia			9.0	16.0	21.43																														
-CYP	Cyprus			6.0	7.0	66.5																														
-CZE	Czech Republic			24.0	32.0	69.285																														
-DNK	Denmark			23.0	22.0	44.165																														
-ECU	Ecuador			4.0	4.0	0.0																														
-EGY	Egypt			14.0	17.0	0.0																														
-SLV	El Salvador			2	2	0%																														
-FIN	Finland			23.0	27.0	69.32																														
-FRA	France			3208.0	3443.0	36.45																														
-DEU	Germany			3573.0	4018.0	37.44																														
-GRC	Greece			237.0	289.0	52.215																														
-HKG	Hong Kong			26.0	327.0	94.0																														
-HUN	Hungary			63.0	75.0	32.475																														
-ISL	Iceland			1	1	100.00%																														
-IRL	Ireland			69.0	76.0	66.93																														
-IND	India			6843.0	8855.0	51.78																														
-ISR	Israel			242.0	272.0	50.58																														
-ITA	Italy			3404.0	4919.0	52.75																														
-CIV	Ivory Coast			5.0	5.0	50.0																														
-JPN	Japan			1	1	0%																														
-OSA	Kosovo			3.0	13.0	50.0																														
-LTU	Lithuania			15.0	17.0	30.72																														
-MKD	Macedonia			15.0	25.0	58.165																														
-MYS	Malaysia			23.0	221.0	9.375																														
-173	Malta			170.0	224.0	60.864999999999995																														
-MEX	Mexico			203.0	339.0	45.3																														
-MNG	Mongolia			2	2	0%																														
-MNE	Montenegro			2	2	0%																														
-NPL	Nepal			5.0	6.0	16.5																														
-NLD	Netherlands			34.0	43.0	36.18																														
-NZL	New Zealand			186.0	223.0	64.0																														
-NOR	Norway			31.0	30.0	22.165																														
-PAK	Pakistan			161.0	210.0	62.31																														
-PAN	Panama			2	2	0%																														
-PER	Peru			15.0	19.0	7.5																														
-PHL	Philippines			8.0	11.0	37.5																														
-POL	Poland			453.0	350.0	12.225																														
-QAT	Qatar			6.0	8.0	0.0																														
-PRT	Portugal			325.0	388.0	33.5																														
-ROU	Romania			27.0	56.0	54.225																														
-RUS	Russia			2.0	2.0	0.0																														
-SRB	Serbia			2.0	3.0	50.0																														
-SGP	Singapore			248.0	259.0	70.46000000000001																														
-SVN	Slovenia			9.0	11.0	58.335																														
-ZAF	South Africa			17.0	13.0	0.0																														
-KOR	South Korea			8.0	16.0	7.0																														
-ESP	Spain			883.0	1526.0	45.3																														
-SWE	Sweden			143.0	175.0	53.405																														
-CHE	Switzerland			66.0	79.0	15.325																														
-THA	Thailand			4.0	7.0	0.0																														
-TWN	Taiwan			422.0	595.0	77.75																														
-UGA	Uganda			2.0	2.0	0.0																														
-TUR	Turkey			225.0	523.0	51.795																														
-GBR	United Kingdom			3881.0	4614.0	69.65																														
-USA	United States			24098.0	39215.0	80.00999999999999							556.0	486.0	39.51	5814.0	9122.0	84.81	5379.0	7943.0	80.2	919.0	1094.0	83.79												
-PAL	Palestine			4	4	0%																														
-GRL	Greenland			2	2	0%																														
-168	Macau			1	1	0%																														
-LKA	Sri Lanka			1	3	0%																														
-ARM	Armenia			1	1	0%																														
-163	Bahrain			1	1	0%																														
-SDN	Sudan			4	4	0%																														
-LUX	Luxembourg			2	5	0%																														
-LBN	Lebanon			12	12	0%																														
-OMN	Oman			3	3	0%																														
-GEO	Georgia			3	3	33.33%																														
-EST	Estonia			6	7	33.33%																														
-URY	Uruguay			1	1	0%																														
-KAZ	Kazakhstan			2	2	0%																														
-KWT	Kuwait			4	3	0%																														
-BTN	Bhutan			1	1	0%																														
-ARE	United Arab Emirates			2	2	0%																														
+id	Country	Total Data Requests	Total Users/Accounts Requested	Percent Requests Where Some Data Produced
+ALB	Albania	12.0	21.0	83.16499999999999
+AUT	Austria	63.0	73.0	15.645
+AUS	Australia	1149.0	1241.0	64.755
+ARG	Argentina	430.0	632.0	22.675
+BGD	Bangladesh	1.0	12.0	0.0
+180	Barbados	3.0	3.0	0.0
+BIH	Bosnia and Herzegovina	8.0	16.0	37.5
+BEL	Belgium	304.0	365.0	67.47
+BRA	Brazil	1880.0	2508.0	33.41
+BWA	Botswana	4.0	8.0	0.0
+BGR	Bulgaria	3.0	3.0	25.0
+KHM	Cambodia	2.0	2.0	0.0
+CAN	Canada	366.0	436.0	47.0
+CHL	Chile	445.0	674.0	66.175
+COL	Colombia	48.0	68.0	17.025
+CRI	Costa Rica	13.0	20.0	5.555
+HRV	Croatia	9.0	16.0	21.43
+CYP	Cyprus	6.0	7.0	66.5
+CZE	Czech Republic	24.0	32.0	69.285
+DNK	Denmark	23.0	22.0	44.165
+ECU	Ecuador	4.0	4.0	0.0
+EGY	Egypt	14.0	17.0	0.0
+SLV	El Salvador	2.0	2.0	0.0
+FIN	Finland	23.0	27.0	69.32
+FRA	France	3208.0	3443.0	36.45
+DEU	Germany	3573.0	4018.0	37.44
+GRC	Greece	237.0	289.0	52.215
+HKG	Hong Kong	26.0	327.0	94.0
+HUN	Hungary	63.0	75.0	32.475
+ISL	Iceland	1.0	1.0	100.0
+IRL	Ireland	69.0	76.0	66.93
+IND	India	6843.0	8855.0	51.78
+ISR	Israel	242.0	272.0	50.58
+ITA	Italy	3404.0	4919.0	52.75
+CIV	Ivory Coast	5.0	5.0	50.0
+JPN	Japan	1.0	1.0	0.0
+OSA	Kosovo	3.0	13.0	50.0
+LTU	Lithuania	15.0	17.0	30.72
+MKD	Macedonia	15.0	25.0	58.165
+MYS	Malaysia	23.0	221.0	9.375
+173	Malta	170.0	224.0	60.864999999999995
+MEX	Mexico	203.0	339.0	45.3
+MNG	Mongolia	2.0	2.0	0.0
+MNE	Montenegro	2.0	2.0	0.0
+NPL	Nepal	5.0	6.0	16.5
+NLD	Netherlands	34.0	43.0	36.18
+NZL	New Zealand	186.0	223.0	64.0
+NOR	Norway	31.0	30.0	22.165
+PAK	Pakistan	161.0	210.0	62.31
+PAN	Panama	2.0	2.0	0.0
+PER	Peru	15.0	19.0	7.5
+PHL	Philippines	8.0	11.0	37.5
+POL	Poland	453.0	350.0	12.225
+QAT	Qatar	6.0	8.0	0.0
+PRT	Portugal	325.0	388.0	33.5
+ROU	Romania	27.0	56.0	54.225
+RUS	Russia	2.0	2.0	0.0
+SRB	Serbia	2.0	3.0	50.0
+SGP	Singapore	248.0	259.0	70.46000000000001
+SVN	Slovenia	9.0	11.0	58.335
+ZAF	South Africa	17.0	13.0	0.0
+KOR	South Korea	8.0	16.0	7.0
+ESP	Spain	883.0	1526.0	45.3
+SWE	Sweden	143.0	175.0	53.405
+CHE	Switzerland	66.0	79.0	15.325
+THA	Thailand	4.0	7.0	0.0
+TWN	Taiwan	422.0	595.0	77.75
+UGA	Uganda	2.0	2.0	0.0
+TUR	Turkey	225.0	523.0	51.795
+GBR	United Kingdom	3881.0	4614.0	69.65
+USA	United States	24098.0	39215.0	80.00999999999999
+ARM	Armenia	1.0	1.0	0.0
+163	Bahrain	1.0	1.0	0.0
+BTN	Bhutan	1.0	1.0	0.0
+EST	Estonia	6.0	7.0	33.33
+GEO	Georgia	3.0	3.0	33.33
+GRL	Greenland	2.0	2.0	0.0
+KAZ	Kazakhstan	2.0	2.0	0.0
+KWT	Kuwait	4.0	3.0	0.0
+LBN	Lebanon	12.0	12.0	0.0
+LUX	Luxembourg	2.0	5.0	0.0
+168	Macau	1.0	1.0	0.0
+OMN	Oman	3.0	3.0	0.0
+PAL	Palestine	4.0	4.0	0.0
+LKA	Sri Lanka	1.0	3.0	0.0
+SDN	Sudan	4.0	4.0	0.0
+ARE	United Arab Emirates	2.0	2.0	0.0
+URY	Uruguay	1.0	1.0	0.0

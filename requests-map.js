@@ -1,3 +1,8 @@
+import {
+    makeLineGraph
+} from "./line-graph.js";
+
+
 var format = d3.format(",");
 
 // Set tooltips
@@ -6,13 +11,15 @@ var tip = d3.tip()
     .offset([100, 0])
     .html(function (d) {
         if (isNaN(d.requests) || (d.requests == 0)) {
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + "No Requests Made" + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + "Not Applicable" + "</span>";
-        }
-        else if(isNaN(d.rate)){
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + "0" + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>"  + "0%" + "</span>";
-        }
-        else {
-            return "<strong>Country: </strong><span class='details'>" + d.properties.name + "<br></span>" + "<strong>Data Requests: </strong><span class='details'>" + format(d.requests) + "<br></span>" + "<strong>Accounts Requested: </strong><span class='details'>" + format(d.accounts) + "</span>" + "<br><strong>Instances Data Was Provided: </strong><span class='details'>" + format(Math.round(d.requests * d.rate / 100)) + "</span>" + "<br><strong>Approval Rate: </strong><span class='details'>" + format(d.rate) + "%" + "</span>";
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>" + ":" + "</td><td align='right'>" + d.properties.name + "</td></tr><tr><th align='left'># Requests</th><td align='center'>" + ":" + "</td><td align='right'>" + "No Requests Made" + "</td></tr><tr><th align='left'># Accounts</th><td align='center'>" + ":" + "</td><td align='right'>" + "0" + "</td></tr><tr><th align='left'>Data Provided</th><td align='center'>" + ":" + "</td><td align='right'>" + "0" + "</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>" + ":" + "</td><td align='right'>" + "Not Applicable" + "</td></tr></table>";
+
+        } else if (isNaN(d.rate)) {
+
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>" + ":" + "</td><td align='right'>" + d.properties.name + "</td></tr><tr><th align='left'># Requests</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.requests) + "</td></tr><tr><th align='left'># Accounts</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.accounts) + "</td></tr><tr><th align='left'>Data Provided</th><td align='center'>" + ":" + "</td><td align='right'>" + "0" + "</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>" + ":" + "</td><td align='right'>" + "0%" + "</td></tr></table>";
+
+        } else {
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>" + ":" + "</td><td align='right'>" + d.properties.name + "</td></tr><tr><th align='left'># Requests</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.requests) + "</td></tr><tr><th align='left'># Accounts</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.accounts) + "</td></tr><tr><th align='left'>Data Provided</th><td align='center'>" + ":" + "</td><td align='right'>" + format(Math.round(d.requests * d.rate / 100)) + "</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>" + ":" + "</td><td align='right'>" + format(Math.round(d.rate)) + "%" + "</td></tr></table>";
+
         }
     });
 
@@ -29,13 +36,15 @@ var color = d3.scaleThreshold()
     .domain([0, 25, 250, 2500, 25000, 205000])
     .range(["rgb(150,150,150)", "rgb(254,240,217)", "rgb(253,204,138)", "rgb(252,141,89)", "rgb(227,74,51)", "rgb(179,0,0)"]);
 
-var svg = d3.select("body")
+var svg = d3.select("#chart-area")
     .append("svg")
+    .attr("id", "line-graph")
     .attr("width", width)
     .attr("height", height)
     .append("g")
     .attr("class", "map");
 
+<<<<<<< HEAD
 var svg2 = d3.select("body")
     .append("svg")
     .attr("width", 10)
@@ -45,70 +54,73 @@ var svg2 = d3.select("body")
 
 var projection = d3.geoMercator()
     .scale(130)
+=======
+var projection = d3.geoNaturalEarth1()
+    .scale(170)
+>>>>>>> ad01d1c3199ea60581f85d355c1a04670fb71639
     .translate([width / 2, height / 1.5]);
 
 var path = d3.geoPath().projection(projection);
 
 svg.call(tip);
 
-queue()
-    .defer(d3.json, "world_countries.json")
-    .defer(d3.tsv, "data/facebook_output/all.tsv")
-    .await(ready);
-
-
 // Percentage merge still has bugs
 function mergeYears(data, startYear, endYear) {
     let countries = new Map();
     for (let year = startYear; year <= endYear; year++) {
-        let yearData = data.filter(r => r["Year"] == year);
+        let yearData = data.filter(r => r.year == year);
         for (let country of yearData) {
             if (countries.has(country.id)) {
                 let existing = countries.get(country.id);
-                existing["Total Data Requests"] = +existing["Total Data Requests"] + +country["Total Data Requests"];
-                existing["Total Users/Accounts Requested"] = +existing["Total Users/Accounts Requested"] + +country["Total Users/Accounts Requested"];
-                existing["Percent Requests Where Some Data Produced"] =
-                    (+existing["Percent Requests Where Some Data Produced"] * existing.datapoints +
-                        +country["Percent Requests Where Some Data Produced"]) / (existing.datapoints + 1);
+                existing["requests"] = +existing["requests"] + +country["requests"];
+                existing["accounts"] = +existing["accounts"] + +country["accounts"];
+                existing["percentAccepted"] =
+                    (+existing["percentAccepted"] * existing.datapoints +
+                        +country["percentAccepted"]) / (existing.datapoints + 1);
                 existing.datapoints += 1;
                 countries.set(country.id, existing);
             } else {
-                country.datapoints = 1;
-                countries.set(country.id, country);
+                let copy = Object.assign({}, country);
+                copy.datapoints = 1;
+                countries.set(copy.id, copy);
             }
         }
     }
     return Array.from(countries.values());
 }
 
-function ready(error, data, requests, accounts, rate) {
+
+function setData(geoData, request_data) {
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
 
-    requests = mergeYears(requests, 2013, 2017);
+    var requests = mergeYears(request_data, 2013, 2017);
 
     requests.forEach(function (d) {
-        requestsById[d.id] = +d["Total Data Requests"];
-        accountsById[d.id] = +d["Total Users/Accounts Requested"];
-        rateById[d.id] = +d["Percent Requests Where Some Data Produced"];
+        requestsById[d.id] = +d["requests"];
+        accountsById[d.id] = +d["accounts"];
+        rateById[d.id] = +d["percentAccepted"];
     });
 
-    data.features.forEach(function (d) {
+    geoData.features.forEach(function (d) {
         d.requests = requestsById[d.id];
         d.accounts = accountsById[d.id];
         d.rate = rateById[d.id];
     });
 
+    // clear
+    svg.selectAll("*").remove();
+
     //Changes to country color White
     svg.append("g")
         .attr("class", "countries")
         .selectAll("path")
-        .data(data.features)
+        .data(geoData.features)
         .enter().append("path")
         .attr("d", path)
         .style("fill", function (d) {
-            let colorVal = requestsById[d.id] == 0 ||  isNaN(requestsById[d.id] ) ? -1 : requestsById[d.id];
+            let colorVal = requestsById[d.id] == 0 || isNaN(requestsById[d.id]) ? -1 : requestsById[d.id];
             return color(colorVal);
         })
         .style("stroke", "white")
@@ -122,7 +134,7 @@ function ready(error, data, requests, accounts, rate) {
 
             d3.select(this)
                 .style("opacity", 1)
-                .style("stroke", "white")
+                .style("stroke", "rgb(175,238,238)")
                 .style("stroke-width", 3);
         })
         .on("mouseout", function (d) {
@@ -135,7 +147,7 @@ function ready(error, data, requests, accounts, rate) {
         });
 
     svg.append("path")
-        .datum(topojson.mesh(data.features, function (a, b) {
+        .datum(topojson.mesh(geoData.features, function (a, b) {
             return a.id !== b.id;
         }))
         // .datum(topojson.mesh(data.features, function(a, b) { return a !== b; }))
@@ -170,6 +182,7 @@ function ready(error, data, requests, accounts, rate) {
     svg.select(".legendLinear")
         .call(legendLinear);
 
+<<<<<<< HEAD
     }
     
     //var x = d3.brushX()
@@ -180,3 +193,43 @@ function ready(error, data, requests, accounts, rate) {
     var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));
 
     svg.append("g").attr("transform", "translate(0,450)").call(xAxis.ticks(d3.timeYear));
+=======
+}
+
+queue()
+    .defer(d3.json, "world_countries.json")
+    .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
+    .defer(d3.tsv, "data/google_output/all_google.tsv")
+    .defer(d3.tsv, "data/linegraph_data.tsv")
+    .await(ready);
+
+
+function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
+
+    document.getElementById("select-facebook").addEventListener("click", () => {
+        setData(geoData, facebookRequets);
+    });
+
+    document.getElementById("select-google").addEventListener("click", () => {
+        setData(geoData, googleRequets);
+    });
+
+    setData(geoData, facebookRequets);
+
+    linegraphData = linegraphData.map(row => {
+        return {
+            id: row.Country,
+            values: Object.keys(row)
+                .map(key => {
+                    return {
+                        id: new Date(key),
+                        value: parseFloat(row[key])
+                    };
+                })
+                .filter(row => !isNaN(row.id) && !isNaN(row.value))
+        };
+    });
+
+    makeLineGraph(linegraphData);
+}
+>>>>>>> ad01d1c3199ea60581f85d355c1a04670fb71639
