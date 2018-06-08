@@ -1,9 +1,32 @@
+export function makeLineGraphData(data, countries) {
+    let goalCountries = new Map();
+    for (let countryName of countries) {
+        goalCountries.set(countryName, {
+            id: countryName,
+            values: []
+        });
+    }
+
+    for (let country of data) {
+        if (goalCountries.has(country.country)) {
+            let row = goalCountries.get(country.country);
+            row.values.push({
+                id: new Date(country.year),
+                value: parseInt(country.requests)
+            });
+        }
+    }
+
+    return Array.from(goalCountries.values());
+}
+
+
 export function makeLineGraph(data) {
 
     const margin = {
             top: 20,
             right: 120,
-            bottom: 50,
+            bottom: 70,
             left: 80
         },
         totalWidth = 960,
@@ -175,10 +198,9 @@ export function makeLineGraph(data) {
 
 
     // Set Scale/Axis Domains
-    console.log(d3.extent(countries[0].values, point => point.id));
     x.domain([new Date("2013-01-02"), new Date("2017-01-02")]);
     y.domain([
-        d3.min(countries, c => d3.min(c.values, d => d.value)),
+        0,
         d3.max(countries, c => d3.max(c.values, d => d.value))
     ]);
     z.domain(countries.map(c => c.id));
@@ -226,8 +248,8 @@ export function makeLineGraph(data) {
         .attr("d", d => line(d.values))
         .style("stroke", d => z(d.id))
         // Animate the line
-        .attr("stroke-dasharray", width + " " + width)
-        .attr("stroke-dashoffset", width)
+        .attr("stroke-dasharray", totalWidth + " " + totalWidth)
+        .attr("stroke-dashoffset", totalWidth)
         .transition()
         .duration(4000)
         .ease(d3.easeLinear)

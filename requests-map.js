@@ -1,5 +1,6 @@
 import {
-    makeLineGraph
+    makeLineGraph,
+    makeLineGraphData
 } from "./line-graph.js";
 
 
@@ -206,5 +207,5 @@ function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
         };
     });
 
-    makeLineGraph(linegraphData);
+    makeLineGraph(makeLineGraphData(facebookRequets, ["Germany", "France"]));
 }
