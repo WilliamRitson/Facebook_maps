@@ -80,3 +80,60 @@ Creates a small triangle extender for the tooltip */
 .details {
     color: white;
 }
+
+
+
+/* Chart CSS */
+h1 {
+    text-align: center;
+    color: #3030ff;
+  }
+  
+  .attribution {
+    text-align: center;
+  }
+  
+  .chart {
+    overflow: hidden;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .axis-x path {
+    display: none;
+  }
+  
+  .line {
+    fill: none;
+    stroke-width: 1.5px;
+  }
+  
+  /*Add .axis path and .axis line commans as described in the book */
+  .axis text {
+    font: Times;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  /* This class applies only to the text of the x axis */
+  .x text {
+    transform: rotate(-60deg);
+  }
+  
+  .grid line {
+    stroke-width: 0.5;
+    stroke: grey;
+  }
+  
+  .grid path {
+    stroke: transparent;
+    stroke-width: 0;
+  }
+  
+  text {
+    cursor: default;
+    font-size: 12px;
+    font-family: sans-serif;
+  }
+  
+  

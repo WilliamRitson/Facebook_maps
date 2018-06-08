@@ -1,15 +1,26 @@
-export function makeLineGraph(svg, data) {
+export function makeLineGraph(data) {
+
     const margin = {
             top: 20,
-            right: 80,
-            bottom: 40,
-            left: 50
+            right: 120,
+            bottom: 50,
+            left: 80
         },
-        width = svg.attr("width") - margin.left - margin.right,
-        height = svg.attr("height") - margin.top - margin.bottom,
-        g = svg
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        totalWidth = 960,
+        totalHeight = 600,
+        width = totalWidth - margin.left - margin.right,
+        height = totalHeight - margin.top - margin.bottom;
+
+    const svg = d3.select("#chart-area")
+        .append("svg")
+        .attr("width", totalWidth)
+        .attr("height", totalHeight)
+        .append("g")
+        .attr("class", "map");
+
+    const g = svg
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     const x = d3.scaleTime().range([0, width]),
         y = d3.scaleLinear().range([height, 0]),
@@ -34,7 +45,7 @@ export function makeLineGraph(svg, data) {
             .call(
                 d3
                     .axisBottom(x)
-                    .ticks(9)
+                    .ticks(4)
                     .tickSize(-height)
                     .tickFormat("")
             )
@@ -160,23 +171,12 @@ export function makeLineGraph(svg, data) {
 
 
     // Transform the data into the desired shape
-    const countries = data
-        .map(row => {
-            return {
-                id: row.Country,
-                values: Object.keys(row)
-                    .map(key => {
-                        return {
-                            id: new Date(key),
-                            value: parseFloat(row[key])
-                        };
-                    })
-                    .filter(point => !isNaN(point.value))
-            };
-        });
+    const countries = data;
+
 
     // Set Scale/Axis Domains
-    x.domain(d3.extent(countries[0].values, point => point.id));
+    console.log(d3.extent(countries[0].values, point => point.id));
+    x.domain([new Date("2013-01-02"), new Date("2017-01-02")]);
     y.domain([
         d3.min(countries, c => d3.min(c.values, d => d.value)),
         d3.max(countries, c => d3.max(c.values, d => d.value))
@@ -186,7 +186,7 @@ export function makeLineGraph(svg, data) {
     // Create X Axis
     g
         .append("g")
-        .attr("class", "axis axis--x")
+        .attr("class", "axis axis-x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
     g
@@ -200,7 +200,7 @@ export function makeLineGraph(svg, data) {
     // Create Y Axis
     g
         .append("g")
-        .attr("class", "axis axis--y")
+        .attr("class", "axis axis-y")
         .call(d3.axisLeft(y));
     g
         .append("text")
@@ -209,7 +209,7 @@ export function makeLineGraph(svg, data) {
         .attr("x", 0 - height / 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Million BTUs Per Person");
+        .text("Data Requests per Year");
 
     // Create group for each country
     const country = g

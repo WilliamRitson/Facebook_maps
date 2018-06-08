@@ -1,4 +1,6 @@
-import makeLineGraph from "./line-graph";
+import {
+    makeLineGraph
+} from "./line-graph.js";
 
 
 var format = d3.format(",");
@@ -9,17 +11,15 @@ var tip = d3.tip()
     .offset([100, 0])
     .html(function (d) {
         if (isNaN(d.requests) || (d.requests == 0)) {
-            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>"+":"+ "</td><td align='right'>"+ d.properties.name +"</td></tr><tr><th align='left'># Requests</th><td align='center'>"+":"+ "</td><td align='right'>"+ "No Requests Made" +"</td></tr><tr><th align='left'># Accounts</th><td align='center'>"+":"+ "</td><td align='right'>"+ "0" +"</td></tr><tr><th align='left'>Data Provided</th><td align='center'>"+":"+ "</td><td align='right'>"+ "0" +"</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>"+":"+ "</td><td align='right'>" + "Not Applicable" + "</td></tr></table>"; 
-            
-        }
-        else if(isNaN(d.rate)){
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>" + ":" + "</td><td align='right'>" + d.properties.name + "</td></tr><tr><th align='left'># Requests</th><td align='center'>" + ":" + "</td><td align='right'>" + "No Requests Made" + "</td></tr><tr><th align='left'># Accounts</th><td align='center'>" + ":" + "</td><td align='right'>" + "0" + "</td></tr><tr><th align='left'>Data Provided</th><td align='center'>" + ":" + "</td><td align='right'>" + "0" + "</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>" + ":" + "</td><td align='right'>" + "Not Applicable" + "</td></tr></table>";
 
-            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>"+":"+ "</td><td align='right'>"+ d.properties.name +"</td></tr><tr><th align='left'># Requests</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.requests) +"</td></tr><tr><th align='left'># Accounts</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.accounts) +"</td></tr><tr><th align='left'>Data Provided</th><td align='center'>"+":"+ "</td><td align='right'>"+ "0" +"</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>"+":"+ "</td><td align='right'>" +"0%"+"</td></tr></table>";
+        } else if (isNaN(d.rate)) {
 
-        }
-        else {
-            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>"+":"+ "</td><td align='right'>"+ d.properties.name +"</td></tr><tr><th align='left'># Requests</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.requests) +"</td></tr><tr><th align='left'># Accounts</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(d.accounts) +"</td></tr><tr><th align='left'>Data Provided</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(Math.round(d.requests * d.rate / 100)) +"</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>"+":"+ "</td><td align='right'>"+ format(Math.round(d.rate)) +"%"+"</td></tr></table>";
-    
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>" + ":" + "</td><td align='right'>" + d.properties.name + "</td></tr><tr><th align='left'># Requests</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.requests) + "</td></tr><tr><th align='left'># Accounts</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.accounts) + "</td></tr><tr><th align='left'>Data Provided</th><td align='center'>" + ":" + "</td><td align='right'>" + "0" + "</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>" + ":" + "</td><td align='right'>" + "0%" + "</td></tr></table>";
+
+        } else {
+            return "<table><caption>Data Requests</caption><tr><th align='left'>Country</th><td align='center'>" + ":" + "</td><td align='right'>" + d.properties.name + "</td></tr><tr><th align='left'># Requests</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.requests) + "</td></tr><tr><th align='left'># Accounts</th><td align='center'>" + ":" + "</td><td align='right'>" + format(d.accounts) + "</td></tr><tr><th align='left'>Data Provided</th><td align='center'>" + ":" + "</td><td align='right'>" + format(Math.round(d.requests * d.rate / 100)) + "</td></tr><tr><th align='left'>Approval Rt</th><td align='center'>" + ":" + "</td><td align='right'>" + format(Math.round(d.rate)) + "%" + "</td></tr></table>";
+
         }
     });
 
@@ -36,8 +36,9 @@ var color = d3.scaleThreshold()
     .domain([0, 25, 250, 2500, 25000, 205000])
     .range(["rgb(150,150,150)", "rgb(254,240,217)", "rgb(253,204,138)", "rgb(252,141,89)", "rgb(227,74,51)", "rgb(179,0,0)"]);
 
-var svg = d3.select("body")
+var svg = d3.select("#chart-area")
     .append("svg")
+    .attr("id", "line-graph")
     .attr("width", width)
     .attr("height", height)
     .append("g")
@@ -175,10 +176,12 @@ queue()
     .defer(d3.json, "world_countries.json")
     .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
     .defer(d3.tsv, "data/google_output/all_google.tsv")
+    .defer(d3.tsv, "data/linegraph_data.tsv")
     .await(ready);
 
 
-function ready(error, geoData, facebookRequets, googleRequets) {
+function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
+
     document.getElementById("select-facebook").addEventListener("click", () => {
         setData(geoData, facebookRequets);
     });
@@ -188,5 +191,20 @@ function ready(error, geoData, facebookRequets, googleRequets) {
     });
 
     setData(geoData, facebookRequets);
-    makeLineGraph(svg, facebookRequets);
+
+    linegraphData = linegraphData.map(row => {
+        return {
+            id: row.Country,
+            values: Object.keys(row)
+                .map(key => {
+                    return {
+                        id: new Date(key),
+                        value: parseFloat(row[key])
+                    };
+                })
+                .filter(row => !isNaN(row.id) && !isNaN(row.value))
+        };
+    });
+
+    makeLineGraph(linegraphData);
 }
