@@ -21,26 +21,28 @@ export function makeLineGraphData(data, countries) {
 }
 
 
+const margin = {
+        top: 20,
+        right: 80,
+        bottom: 70,
+        left: 80
+    },
+    totalWidth = 500,
+    totalHeight = 600,
+    width = totalWidth - margin.left - margin.right,
+    height = totalHeight - margin.top - margin.bottom;
+
+const animationTime = 600; // miliseconds
+const svg = d3.select("#line-chart")
+    .attr("width", totalWidth)
+    .attr("height", totalHeight);
+
 export function makeLineGraph(data) {
-
-    const margin = {
-            top: 20,
-            right: 120,
-            bottom: 70,
-            left: 80
-        },
-        totalWidth = 960,
-        totalHeight = 600,
-        width = totalWidth - margin.left - margin.right,
-        height = totalHeight - margin.top - margin.bottom;
-
-    const svg = d3.select("#chart-area")
-        .append("svg")
-        .attr("width", totalWidth)
-        .attr("height", totalHeight)
+    // clear
+    svg.selectAll("*").remove();
+    svg
         .append("g")
         .attr("class", "map");
-
     const g = svg
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -67,10 +69,10 @@ export function makeLineGraph(data) {
             .attr("transform", "translate(0," + height + ")")
             .call(
                 d3
-                    .axisBottom(x)
-                    .ticks(4)
-                    .tickSize(-height)
-                    .tickFormat("")
+                .axisBottom(x)
+                .ticks(4)
+                .tickSize(-height)
+                .tickFormat("")
             )
             .attr("id", "xgrid");
 
@@ -80,10 +82,10 @@ export function makeLineGraph(data) {
             .attr("class", "grid grid-y")
             .call(
                 d3
-                    .axisLeft(y)
-                    .ticks(7)
-                    .tickSize(-width)
-                    .tickFormat("")
+                .axisLeft(y)
+                .ticks(7)
+                .tickSize(-width)
+                .tickFormat("")
             )
             .attr("id", "ygrid");
     };
@@ -198,7 +200,7 @@ export function makeLineGraph(data) {
 
 
     // Set Scale/Axis Domains
-    x.domain([new Date("2013-01-02"), new Date("2017-01-02")]);
+    x.domain([new Date("2012-12-31"), new Date("2017-01-02")]);
     y.domain([
         0,
         d3.max(countries, c => d3.max(c.values, d => d.value))
@@ -210,7 +212,7 @@ export function makeLineGraph(data) {
         .append("g")
         .attr("class", "axis axis-x")
         .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x).ticks(4));
     g
         .append("text")
         .attr("y", height + margin.bottom / 2)
@@ -251,7 +253,7 @@ export function makeLineGraph(data) {
         .attr("stroke-dasharray", totalWidth + " " + totalWidth)
         .attr("stroke-dashoffset", totalWidth)
         .transition()
-        .duration(4000)
+        .duration(animationTime)
         .ease(d3.easeLinear)
         .attr("stroke-dashoffset", 0);
 

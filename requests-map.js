@@ -37,8 +37,7 @@ var color = d3.scaleThreshold()
     .domain([0, 25, 250, 2500, 25000, 205000])
     .range(["rgb(150,150,150)", "rgb(254,240,217)", "rgb(253,204,138)", "rgb(252,141,89)", "rgb(227,74,51)", "rgb(179,0,0)"]);
 
-var svg = d3.select("#chart-area")
-    .append("svg")
+var svg = d3.select("#geomap")
     .attr("id", "line-graph")
     .attr("width", width)
     .attr("height", height)
@@ -78,8 +77,21 @@ function mergeYears(data, startYear, endYear) {
     return Array.from(countries.values());
 }
 
+const countriesToGraph = new Set();
+
+function toggleCountry(requestData, country) {
+
+    if (countriesToGraph.has(country)) {
+        countriesToGraph.delete(country);
+    } else {
+        countriesToGraph.add(country);
+    }
+    makeLineGraph(makeLineGraphData(requestData, countriesToGraph));
+}
 
 function setData(geoData, request_data) {
+    makeLineGraph(makeLineGraphData(request_data, countriesToGraph));
+
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
@@ -133,6 +145,9 @@ function setData(geoData, request_data) {
                 .style("opacity", 0.8)
                 .style("stroke", "white")
                 .style("stroke-width", 0.3);
+        })
+        .on("click", d => { 
+            toggleCountry(request_data, d.properties.name);  
         });
 
     svg.append("path")
@@ -177,11 +192,10 @@ queue()
     .defer(d3.json, "world_countries.json")
     .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
     .defer(d3.tsv, "data/google_output/all_google.tsv")
-    .defer(d3.tsv, "data/linegraph_data.tsv")
     .await(ready);
 
 
-function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
+function ready(error, geoData, facebookRequets, googleRequets) {
 
     document.getElementById("select-facebook").addEventListener("click", () => {
         setData(geoData, facebookRequets);
@@ -193,19 +207,6 @@ function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
 
     setData(geoData, facebookRequets);
 
-    linegraphData = linegraphData.map(row => {
-        return {
-            id: row.Country,
-            values: Object.keys(row)
-                .map(key => {
-                    return {
-                        id: new Date(key),
-                        value: parseFloat(row[key])
-                    };
-                })
-                .filter(row => !isNaN(row.id) && !isNaN(row.value))
-        };
-    });
 
-    makeLineGraph(makeLineGraphData(facebookRequets, ["Germany", "France"]));
+
 }
