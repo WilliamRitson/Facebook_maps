@@ -36,6 +36,13 @@ var svg = d3.select("body")
     .append("g")
     .attr("class", "map");
 
+var svg2 = d3.select("body")
+    .append("svg")
+    .attr("width", 10)
+    .attr("height", 700)
+    .append("g")
+    .attr("class", "map");
+
 var projection = d3.geoMercator()
     .scale(130)
     .translate([width / 2, height / 1.5]);
