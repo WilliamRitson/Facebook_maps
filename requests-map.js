@@ -163,6 +163,13 @@ function ready(error, data, requests, accounts, rate) {
     svg.select(".legendLinear")
         .call(legendLinear);
 
+    }
+    
+    //var x = d3.brushX()
+    var xAxisScale = d3.scaleTime()
+        .domain([new Date(2013), new Date(2017)])
+        .rangeRound([0, width]);
 
+    var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));
 
-}
+    svg.append("g").attr("transform", "translate(0,450)").call(xAxis.ticks(d3.timeYear));
