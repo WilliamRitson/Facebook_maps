@@ -1,4 +1,4 @@
-export function makeLineGraphData(data, countries) {
+export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
     let goalCountries = new Map();
     for (let countryName of countries) {
         goalCountries.set(countryName, {
@@ -8,7 +8,8 @@ export function makeLineGraphData(data, countries) {
     }
 
     for (let country of data) {
-        if (goalCountries.has(country.country)) {
+        let year = parseInt(country.year);
+        if (goalCountries.has(country.country) && year >= rangeLow && year <= rangeHigh) {
             let row = goalCountries.get(country.country);
             row.values.push({
                 id: new Date(country.year),
@@ -32,7 +33,7 @@ const margin = {
     width = totalWidth - margin.left - margin.right,
     height = totalHeight - margin.top - margin.bottom;
 
-const animationTime = 600; // miliseconds
+const animationTime = 1000; // miliseconds
 const svg = d3.select("#line-chart")
     .attr("width", totalWidth)
     .attr("height", totalHeight);
@@ -250,8 +251,8 @@ export function makeLineGraph(data) {
         .attr("d", d => line(d.values))
         .style("stroke", d => z(d.id))
         // Animate the line
-        .attr("stroke-dasharray", totalWidth + " " + totalWidth)
-        .attr("stroke-dashoffset", totalWidth)
+        .attr("stroke-dasharray", totalWidth + totalHeight + " " + totalWidth + totalHeight)
+        .attr("stroke-dashoffset", totalWidth + totalHeight)
         .transition()
         .duration(animationTime)
         .ease(d3.easeLinear)

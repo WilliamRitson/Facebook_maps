@@ -77,31 +77,40 @@ function mergeYears(data, startYear, endYear) {
     return Array.from(countries.values());
 }
 
+const defaultGraphCountries = ["United States", "India", "United Kingdom", "Germany", "France", "Canada"];
 const countriesToGraph = new Set();
 
-function toggleCountry(requestData, country) {
+function getCountriesToGraph() {
+    if (countriesToGraph.size > 0)
+        return countriesToGraph;
+    return defaultGraphCountries;
+}
+
+function toggleCountry(requestData, country, yearLow, yearHigh) {
 
     if (countriesToGraph.has(country)) {
         countriesToGraph.delete(country);
     } else {
         countriesToGraph.add(country);
     }
-    makeLineGraph(makeLineGraphData(requestData, countriesToGraph));
+    makeLineGraph(makeLineGraphData(requestData, getCountriesToGraph(), yearLow, yearHigh));
 }
 
-function setData(geoData, request_data) {
-    makeLineGraph(makeLineGraphData(request_data, countriesToGraph));
+function setData(geoData, request_data, yearLow, yearHigh) {
+    makeLineGraph(makeLineGraphData(request_data, getCountriesToGraph(), yearLow, yearHigh));
 
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
+    var names = {};
 
-    var requests = mergeYears(request_data, 2013, 2017);
+    var requests = mergeYears(request_data, yearLow, yearHigh);
 
     requests.forEach(function (d) {
         requestsById[d.id] = +d["requests"];
         accountsById[d.id] = +d["accounts"];
         rateById[d.id] = +d["percentAccepted"];
+        names[d.id] = d.country;
     });
 
     geoData.features.forEach(function (d) {
@@ -147,7 +156,8 @@ function setData(geoData, request_data) {
                 .style("stroke-width", 0.3);
         })
         .on("click", d => { 
-            toggleCountry(request_data, d.properties.name);  
+            if (requestsById[d.id] > 0)
+                toggleCountry(request_data, names[d.id], yearLow, yearHigh);  
         });
 
     svg.append("path")
@@ -198,14 +208,14 @@ queue()
 function ready(error, geoData, facebookRequets, googleRequets) {
 
     document.getElementById("select-facebook").addEventListener("click", () => {
-        setData(geoData, facebookRequets);
+        setData(geoData, facebookRequets, 2013, 2017);
     });
 
     document.getElementById("select-google").addEventListener("click", () => {
-        setData(geoData, googleRequets);
+        setData(geoData, googleRequets, 2013, 2017);
     });
 
-    setData(geoData, facebookRequets);
+    setData(geoData, facebookRequets, 2013, 2017);
 
 
 
