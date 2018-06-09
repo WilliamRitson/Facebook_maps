@@ -9,7 +9,11 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
 
     for (let country of data) {
         let year = parseInt(country.year);
-        if (goalCountries.has(country.country) && year >= rangeLow && year <= rangeHigh) {
+        if (
+            goalCountries.has(country.country) &&
+            year >= rangeLow &&
+            year <= rangeHigh
+        ) {
             let row = goalCountries.get(country.country);
             row.values.push({
                 id: new Date(country.year),
@@ -20,7 +24,6 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
 
     return Array.from(goalCountries.values());
 }
-
 
 const margin = {
         top: 20,
@@ -34,16 +37,15 @@ const margin = {
     height = totalHeight - margin.top - margin.bottom;
 
 const animationTime = 1000; // miliseconds
-const svg = d3.select("#line-chart")
+const svg = d3
+    .select("#line-chart")
     .attr("width", totalWidth)
     .attr("height", totalHeight);
 
 export function makeLineGraph(data) {
     // clear
     svg.selectAll("*").remove();
-    svg
-        .append("g")
-        .attr("class", "map");
+    svg.append("g").attr("class", "map");
     const g = svg
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -58,35 +60,32 @@ export function makeLineGraph(data) {
         .x(d => x(d.id))
         .y(d => y(d.value));
 
-
     // Adapted From https://sureshlodha.github.io/CMPS263_Winter2018/CMPS263FinalProjects/PrescriptionDrugs/index.html
     // Who got it from https://bl.ocks.org/d3noob/c506ac45617cf9ed39337f99f8511218
     // Draw grid lines for the chart
     const drawGridLines = () => {
         // grid lines for x-axis
-        g
-            .append("g")
+        g.append("g")
             .attr("class", "grid grid-x")
             .attr("transform", "translate(0," + height + ")")
             .call(
                 d3
-                .axisBottom(x)
-                .ticks(4)
-                .tickSize(-height)
-                .tickFormat("")
+                    .axisBottom(x)
+                    .ticks(4)
+                    .tickSize(-height)
+                    .tickFormat("")
             )
             .attr("id", "xgrid");
 
         // grid lines for y-axis
-        g
-            .append("g")
+        g.append("g")
             .attr("class", "grid grid-y")
             .call(
                 d3
-                .axisLeft(y)
-                .ticks(7)
-                .tickSize(-width)
-                .tickFormat("")
+                    .axisLeft(y)
+                    .ticks(7)
+                    .tickSize(-width)
+                    .tickFormat("")
             )
             .attr("id", "ygrid");
     };
@@ -131,29 +130,31 @@ export function makeLineGraph(data) {
             .attr("height", height)
             .attr("fill", "none")
             .attr("pointer-events", "all")
-            .on("mouseout", function () {
+            .on("mouseout", function() {
                 // on mouse out hide line, circles and text
                 d3.select(".mouse-line").style("opacity", "0");
                 d3.selectAll(".mouse-per-line circle").style("opacity", "0");
                 d3.selectAll(".mouse-per-line text").style("opacity", "0");
             })
-            .on("mouseover", function () {
+            .on("mouseover", function() {
                 // on mouse in show line, circles and text
                 d3.select(".mouse-line").style("opacity", "1");
                 d3.selectAll(".mouse-per-line circle").style("opacity", "1");
                 d3.selectAll(".mouse-per-line text").style("opacity", "1");
             })
-            .on("mousemove", function () {
+            .on("mousemove", function() {
                 // mouse moving over canvas
                 const mouse = d3.mouse(this);
-                d3.select(".mouse-line").attr("d", function () {
+                d3.select(".mouse-line").attr("d", function() {
                     var d = "M" + mouse[0] + "," + height;
                     d += " " + mouse[0] + "," + 0;
                     return d;
                 });
 
-                d3.selectAll(".mouse-per-line").attr("transform", function (d, i) {
-
+                d3.selectAll(".mouse-per-line").attr("transform", function(
+                    d,
+                    i
+                ) {
                     let beginning = 0;
                     let end = lines[i].getTotalLength();
                     let target = null;
@@ -162,7 +163,10 @@ export function makeLineGraph(data) {
                     while (true) {
                         target = Math.floor((beginning + end) / 2);
                         pos = lines[i].getPointAtLength(target);
-                        if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+                        if (
+                            (target === end || target === beginning) &&
+                            pos.x !== mouse[0]
+                        ) {
                             break;
                         }
                         if (pos.x > mouse[0]) end = target;
@@ -170,8 +174,7 @@ export function makeLineGraph(data) {
                         else break; //position found
                     }
 
-                    d3
-                        .select(this)
+                    d3.select(this)
                         .select("text")
                         .text(y.invert(pos.y).toFixed(2));
 
@@ -184,7 +187,7 @@ export function makeLineGraph(data) {
         return dataGroup.map(country => {
             return {
                 id: country.id,
-                values: country.values.map(function (d) {
+                values: country.values.map(function(d) {
                     return {
                         year: d.id,
                         percentage: d.value
@@ -195,27 +198,20 @@ export function makeLineGraph(data) {
         });
     }
 
-
     // Transform the data into the desired shape
     const countries = data;
 
-
     // Set Scale/Axis Domains
     x.domain([new Date("2012-12-31"), new Date("2017-01-02")]);
-    y.domain([
-        0,
-        d3.max(countries, c => d3.max(c.values, d => d.value))
-    ]);
+    y.domain([0, d3.max(countries, c => d3.max(c.values, d => d.value))]);
     z.domain(countries.map(c => c.id));
 
     // Create X Axis
-    g
-        .append("g")
+    g.append("g")
         .attr("class", "axis axis-x")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x).ticks(4));
-    g
-        .append("text")
+    g.append("text")
         .attr("y", height + margin.bottom / 2)
         .attr("x", width / 2)
         .attr("dy", "1em")
@@ -223,12 +219,10 @@ export function makeLineGraph(data) {
         .text("Year");
 
     // Create Y Axis
-    g
-        .append("g")
+    g.append("g")
         .attr("class", "axis axis-y")
         .call(d3.axisLeft(y));
-    g
-        .append("text")
+    g.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - margin.left)
         .attr("x", 0 - height / 2)
@@ -251,7 +245,10 @@ export function makeLineGraph(data) {
         .attr("d", d => line(d.values))
         .style("stroke", d => z(d.id))
         // Animate the line
-        .attr("stroke-dasharray", totalWidth + totalHeight + " " + totalWidth + totalHeight)
+        .attr(
+            "stroke-dasharray",
+            totalWidth + totalHeight + " " + totalWidth + totalHeight
+        )
         .attr("stroke-dashoffset", totalWidth + totalHeight)
         .transition()
         .duration(animationTime)
@@ -278,5 +275,4 @@ export function makeLineGraph(data) {
 
     drawGridLines();
     drawMouseover(processDatagroup(countries, countries));
-
 }

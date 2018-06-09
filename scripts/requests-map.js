@@ -121,14 +121,6 @@ function setData(geoData, request_data, yearLow, yearHigh) {
     // clear
     svg.selectAll("*").remove();
 
-    const widthThin = 0.3;
-    const widthThick = 3;
-    const normalColor = "white";
-    const selectedColor = "darkred";
-    const hoverColor = "rgb(175,238,238)";
-    const normalOpacity = 0.8;
-    const selectedOpacity = 1;
-
     //Changes to country color White
     svg.append("g")
         .attr("class", "map-outline")
