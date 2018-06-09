@@ -86,7 +86,6 @@ function mergeYears(data, startYear, endYear) {
     return Array.from(countries.values());
 }
 
-<<<<<<< HEAD
 function brushed() {
     /*
       The brush attributes are no longer stored 
@@ -122,7 +121,6 @@ function brushed() {
         })
 }
 
-=======
 const defaultGraphCountries = ["United States", "India", "United Kingdom", "Germany", "France", "Canada"];
 const countriesToGraph = new Set();
 
@@ -143,7 +141,6 @@ function toggleCountry(requestData, country, yearLow, yearHigh) {
 
 function setData(geoData, request_data, yearLow, yearHigh) {
     makeLineGraph(makeLineGraphData(request_data, getCountriesToGraph(), yearLow, yearHigh));
->>>>>>> f3f8bf5bec748fec799654c48b2f94079a85dcb9
 
     var requestsById = {};
     var accountsById = {};
@@ -308,9 +305,4 @@ function ready(error, geoData, facebookRequets, googleRequets) {
 
 
 
-<<<<<<< HEAD
-    makeLineGraph(linegraphData);
 }
-=======
-}
->>>>>>> f3f8bf5bec748fec799654c48b2f94079a85dcb9
