@@ -131,7 +131,7 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 
     //Changes to country color White
     svg.append("g")
-        .attr("class", "countries")
+        .attr("class", "map-outline")
         .selectAll("path")
         .data(geoData.features)
         .enter().append("path")
@@ -140,20 +140,14 @@ function setData(geoData, request_data, yearLow, yearHigh) {
             let colorVal = requestsById[d.id] == 0 || isNaN(requestsById[d.id]) ? -1 : requestsById[d.id];
             return color(colorVal);
         })
-        .style("stroke", "white")
-        .style("stroke-width", 1.5)
-        .style("opacity", d => countriesToGraph.has(names[d.id]) ? selectedOpacity : normalOpacity)
+
         // tooltips
-        .style("stroke", d => countriesToGraph.has(names[d.id]) ? selectedColor : normalColor)
-        .style("stroke-width", d => countriesToGraph.has(names[d.id]) ? widthThick : widthThin)
         .on("mouseover", function (d) {
             tip.show(d);
 
             if (!countriesToGraph.has(names[d.id])) {
                 d3.select(this)
-                    .style("opacity", selectedOpacity)
-                    .style("stroke", hoverColor)
-                    .style("stroke-width", widthThick);
+                    .attr("class", "hovered");
             }
         })
         .on("mouseout", function (d) {
@@ -161,9 +155,7 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 
             if (!countriesToGraph.has(names[d.id])) {
                 d3.select(this)
-                    .style("opacity", normalOpacity)
-                    .style("stroke", normalColor)
-                    .style("stroke-width", widthThin);
+                    .attr("class", "map-outline");
             }
         })
         .on("click", function (d) {
@@ -172,14 +164,11 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 
             if (countriesToGraph.has(names[d.id])) {
                 d3.select(this)
-                    .style("opacity", selectedOpacity)
-                    .style("stroke", selectedColor)
-                    .style("stroke-width", widthThick);
+                    .attr("class", "selected");
+
             } else {
                 d3.select(this)
-                    .style("opacity", normalOpacity)
-                    .style("stroke", normalColor)
-                    .style("stroke-width", widthThin);
+                    .attr("class", "map-outline");
             }
         });
 
@@ -222,7 +211,7 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 }
 
 queue()
-    .defer(d3.json, "world_countries.json")
+    .defer(d3.json, "data/world_countries.json")
     .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
     .defer(d3.tsv, "data/google_output/all_google.tsv")
     .await(ready);
