@@ -1,44 +1,52 @@
+.graph-label{
+    color: black;
+}
+
 .chart {
-    overflow: hidden;
-    margin: 0 auto;
-    display: block;
+  overflow: hidden;
+  margin: 0 auto;
+  display: block;
 }
 
 .axis-x path {
-    display: none;
+  display: none;
 }
 
-.line {
-    fill: none;
-    stroke-width: 1.5px;
+.graph-line {
+  fill: none;
+  stroke-width: 1.5px;
 }
 
 /*Add .axis path and .axis line commans as described in the book */
 
 .axis text {
-    font: Times;
+  font: Times;
+  font-size: 10px;
+}
+
+.axis-label {
     font-size: 12px;
     font-weight: bold;
 }
 
-/* This class applies only to the text of the x axis */
 
+/* This class applies only to the text of the x axis */
 .x text {
-    transform: rotate(-60deg);
+  transform: rotate(-60deg);
 }
 
 .grid line {
-    stroke-width: 0.5;
-    stroke: grey;
+  stroke-width: 0.5;
+  stroke: grey;
 }
 
 .grid path {
-    stroke: transparent;
-    stroke-width: 0;
+  stroke: transparent;
+  stroke-width: 0;
 }
 
 text {
-    cursor: default;
-    font-size: 12px;
-    font-family: sans-serif;
+  cursor: default;
+  font-size: 12px;
+  font-family: sans-serif;
 }

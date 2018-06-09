@@ -27,9 +27,9 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
 
 const margin = {
         top: 20,
-        right: 80,
-        bottom: 70,
-        left: 80
+        right: 90,
+        bottom: 40,
+        left: 60
     },
     totalWidth = 500,
     totalHeight = 600,
@@ -102,7 +102,7 @@ export function makeLineGraph(data) {
             .style("stroke-width", "1px")
             .style("opacity", "0");
 
-        const lines = document.getElementsByClassName("line");
+        const lines = document.getElementsByClassName("graph-line");
 
         const mousePerLine = mouseG
             .selectAll(".mouse-per-line")
@@ -217,6 +217,7 @@ export function makeLineGraph(data) {
         .attr("x", width / 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
+        .attr("class", "axis-label")
         .text("Year");
 
     // Create Y Axis
@@ -229,20 +230,20 @@ export function makeLineGraph(data) {
         .attr("x", 0 - height / 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Data Requests per Year");
+        .attr("class", "axis-label")
+        .text("Data Requests");
 
     // Create group for each country
     const country = g
         .selectAll(".country")
         .data(countries)
         .enter()
-        .append("g")
-        .attr("class", "country");
+        .append("g");
 
     // Plot line for each country
     country
         .append("path")
-        .attr("class", "line")
+        .attr("class", "graph-line")
         .attr("d", d => line(d.values))
         .style("stroke", d => z(d.id))
         // Animate the line
@@ -271,7 +272,7 @@ export function makeLineGraph(data) {
         )
         .attr("x", 3)
         .attr("dy", "0.35em")
-        .style("font", "10px sans-serif")
+        .style("class", "graph-label")
         .text(d => d.id);
 
     drawGridLines();

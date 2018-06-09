@@ -187,12 +187,14 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 
     //Changes to country color White
     svg.append("g")
-        .attr("class", "map-outline")
         .selectAll("path")
         .data(geoData.features)
         .enter()
         .append("path")
+        .attr("class", "country")
+
         .attr("d", path)
+
         .style("fill", function(d) {
             let colorVal =
                 requestsById[d.id] == 0 || isNaN(requestsById[d.id])
@@ -204,17 +206,9 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         // tooltips
         .on("mouseover", function(d) {
             tip.show(d);
-
-            if (!countriesToGraph.has(names[d.id])) {
-                d3.select(this).attr("class", "hovered");
-            }
         })
         .on("mouseout", function(d) {
             tip.hide(d);
-
-            if (!countriesToGraph.has(names[d.id])) {
-                d3.select(this).attr("class", "map-outline");
-            }
         })
         .on("click", function(d) {
             if (requestsById[d.id] > 0)
@@ -223,7 +217,7 @@ function setData(geoData, request_data, yearLow, yearHigh) {
             if (countriesToGraph.has(names[d.id])) {
                 d3.select(this).attr("class", "selected");
             } else {
-                d3.select(this).attr("class", "map-outline");
+                d3.select(this).attr("class", "country");
             }
         });
 

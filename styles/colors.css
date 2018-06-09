@@ -1,5 +1,13 @@
 :root {
-    --tip-color: rgb(204, 204, 235); /* Color of tootlip background */
-    --hover-color: rgb(204, 204, 235); /* Color of country when hovering */
-    --selected-color: rgb(219, 131, 59); /* Color of country when selected for graphing */
+  /* Color of tootlip background */
+  --tip-color: rgb(204, 204, 235);
+
+  /* Color of country borders when unselected */
+  --border-color: white;
+
+  /* Color of country when hovering */
+  --hover-color: rgb(204, 204, 235);
+
+  /* Color of country when selected for graphing */
+  --selected-color: rgb(219, 131, 59);
 }

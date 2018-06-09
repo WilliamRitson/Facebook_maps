@@ -1,8 +1,11 @@
-
+/* Import the color scheme*/
+@import "colors.css";
 /* Import the CSS for the GeoMap */
-@import 'map.css';
-/* Import the CSS for the Line Chart */
-@import 'graph.css';
+@import "map.css"; 
+ /* Import the CSS for the Line Chart */
+@import "graph.css";
+/* Import the CSS for the tooltips*/
+@import "tooltip.css"; 
 
 /* Define the CSS for the rest of the document (header, layout, ect) */
 h1 {
