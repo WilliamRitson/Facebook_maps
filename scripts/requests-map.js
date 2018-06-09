@@ -1,66 +1,7 @@
 import { makeLineGraph, makeLineGraphData } from "./line-graph.js";
+import { tip } from "./tooltip-config.js";
 
-var format = d3.format(",");
-
-function makeTip(name, requests, accounts, provided, approval) {
-    return `
-        <table>
-        <caption>Data Requests</caption>
-        <tr>
-            <th align='left'>Country</th>
-            <td align='center'>:</td>
-            <td align='right'>${name}</td>
-        </tr>
-        <tr>
-            <th align='left'># Requests</th>
-            <td align='center'>:</td>
-            <td align='right'>${requests}</td>
-        </tr>
-        <tr>
-            <th align='left'># Accounts</th>
-            <td align='center'>:</td>
-            <td align='right'>${accounts}</td>
-        </tr>
-        <tr>
-            <th align='left'>Data Provided</th>
-            <td align='center'>:</td>
-            <td align='right'>${provided}</td>
-        </tr>
-        <tr>
-            <th align='left'>Approval Rate</th>
-            <td align='center'>:</td>
-            <td align='right'>${approval}e</td>
-        </tr>
-        </table>
-    `;
-}
-
-// Set tooltips
-var tip = d3
-    .tip()
-    .attr("class", "d3-tip")
-    .offset([100, 0])
-    .html(function(d) {
-        if (isNaN(d.requests) || d.requests == 0) {
-            return makeTip(
-                d.properties.name,
-                "No Requests Made",
-                "0",
-                "Not Applicable",
-                "Not Applicable"
-            );
-        } else {
-            return makeTip(
-                d.properties.name,
-                format(d.requests),
-                format(d.accounts),
-                format(Math.round((d.requests * d.rate) / 100)),
-                Math.round(d.rate) + "%"
-            );
-        }
-    });
-
-var margin = {
+const margin = {
         top: 0,
         right: 0,
         bottom: 0,
@@ -69,7 +10,7 @@ var margin = {
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var color = d3
+const color = d3
     .scaleThreshold()
     .domain([0, 25, 250, 2500, 25000, 205000])
     .range([
@@ -81,7 +22,7 @@ var color = d3
         "rgb(179,0,0)"
     ]);
 
-var svg = d3
+const svg = d3
     .select("#geomap")
     .attr("id", "line-graph")
     .attr("width", width)
@@ -89,12 +30,12 @@ var svg = d3
     .append("g")
     .attr("class", "map");
 
-var projection = d3
+const projection = d3
     .geoNaturalEarth1()
     .scale(170)
     .translate([width / 2, height / 1.5]);
 
-var path = d3.geoPath().projection(projection);
+const path = d3.geoPath().projection(projection);
 
 svg.call(tip);
 
