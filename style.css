@@ -82,6 +82,11 @@ Creates a small triangle extender for the tooltip */
 }
 
 
+#chart-area svg {
+  float: left;
+}
+
+
 
 /* Chart CSS */
 h1 {

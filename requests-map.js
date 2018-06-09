@@ -1,5 +1,6 @@
 import {
-    makeLineGraph
+    makeLineGraph,
+    makeLineGraphData
 } from "./line-graph.js";
 
 
@@ -36,8 +37,7 @@ var color = d3.scaleThreshold()
     .domain([0, 25, 250, 2500, 25000, 205000])
     .range(["rgb(150,150,150)", "rgb(254,240,217)", "rgb(253,204,138)", "rgb(252,141,89)", "rgb(227,74,51)", "rgb(179,0,0)"]);
 
-var svg = d3.select("#chart-area")
-    .append("svg")
+var svg = d3.select("#geomap")
     .attr("id", "line-graph")
     .attr("width", width)
     .attr("height", height)
@@ -86,6 +86,7 @@ function mergeYears(data, startYear, endYear) {
     return Array.from(countries.values());
 }
 
+<<<<<<< HEAD
 function brushed() {
     /*
       The brush attributes are no longer stored 
@@ -121,18 +122,41 @@ function brushed() {
         })
 }
 
+=======
+const defaultGraphCountries = ["United States", "India", "United Kingdom", "Germany", "France", "Canada"];
+const countriesToGraph = new Set();
 
-function setData(geoData, request_data) {
+function getCountriesToGraph() {
+    if (countriesToGraph.size > 0)
+        return countriesToGraph;
+    return defaultGraphCountries;
+}
+
+function toggleCountry(requestData, country, yearLow, yearHigh) {
+    if (countriesToGraph.has(country)) {
+        countriesToGraph.delete(country);
+    } else {
+        countriesToGraph.add(country);
+    }
+    makeLineGraph(makeLineGraphData(requestData, getCountriesToGraph(), yearLow, yearHigh));
+}
+
+function setData(geoData, request_data, yearLow, yearHigh) {
+    makeLineGraph(makeLineGraphData(request_data, getCountriesToGraph(), yearLow, yearHigh));
+>>>>>>> f3f8bf5bec748fec799654c48b2f94079a85dcb9
+
     var requestsById = {};
     var accountsById = {};
     var rateById = {};
+    var names = {};
 
-    var requests = mergeYears(request_data, 2013, 2017);
+    var requests = mergeYears(request_data, yearLow, yearHigh);
 
     requests.forEach(function (d) {
         requestsById[d.id] = +d["requests"];
         accountsById[d.id] = +d["accounts"];
         rateById[d.id] = +d["percentAccepted"];
+        names[d.id] = d.country;
     });
 
     geoData.features.forEach(function (d) {
@@ -164,18 +188,33 @@ function setData(geoData, request_data) {
         .on("mouseover", function (d) {
             tip.show(d);
 
-            d3.select(this)
-                .style("opacity", 1)
-                .style("stroke", "rgb(175,238,238)")
-                .style("stroke-width", 3);
+            if (!countriesToGraph.has(names[d.id])) {
+                d3.select(this)
+                    .style("opacity", 1)
+                    .style("stroke", "rgb(175,238,238)")
+                    .style("stroke-width", 3);
+            }
         })
         .on("mouseout", function (d) {
             tip.hide(d);
 
-            d3.select(this)
-                .style("opacity", 0.8)
-                .style("stroke", "white")
-                .style("stroke-width", 0.3);
+            if (!countriesToGraph.has(names[d.id])) {
+                d3.select(this)
+                    .style("opacity", 0.8)
+                    .style("stroke", "white")
+                    .style("stroke-width", 0.3);
+            }
+        })
+        .on("click", function (d) {
+            if (requestsById[d.id] > 0)
+                toggleCountry(request_data, names[d.id], yearLow, yearHigh);
+
+            if (countriesToGraph.has(names[d.id])) {
+                d3.select(this)
+                    .style("opacity", 1)
+                    .style("stroke", "cornflowerblue")
+                    .style("stroke-width", 3);
+            }
         });
 
     svg.append("path")
@@ -252,35 +291,26 @@ queue()
     .defer(d3.json, "world_countries.json")
     .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
     .defer(d3.tsv, "data/google_output/all_google.tsv")
-    .defer(d3.tsv, "data/linegraph_data.tsv")
     .await(ready);
 
 
-function ready(error, geoData, facebookRequets, googleRequets, linegraphData) {
+function ready(error, geoData, facebookRequets, googleRequets) {
 
     document.getElementById("select-facebook").addEventListener("click", () => {
-        setData(geoData, facebookRequets);
+        setData(geoData, facebookRequets, 2013, 2017);
     });
 
     document.getElementById("select-google").addEventListener("click", () => {
-        setData(geoData, googleRequets);
+        setData(geoData, googleRequets, 2013, 2017);
     });
 
-    setData(geoData, facebookRequets);
+    setData(geoData, facebookRequets, 2013, 2017);
 
-    linegraphData = linegraphData.map(row => {
-        return {
-            id: row.Country,
-            values: Object.keys(row)
-                .map(key => {
-                    return {
-                        id: new Date(key),
-                        value: parseFloat(row[key])
-                    };
-                })
-                .filter(row => !isNaN(row.id) && !isNaN(row.value))
-        };
-    });
 
+
+<<<<<<< HEAD
     makeLineGraph(linegraphData);
 }
+=======
+}
+>>>>>>> f3f8bf5bec748fec799654c48b2f94079a85dcb9

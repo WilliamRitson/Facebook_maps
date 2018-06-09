@@ -219,15 +219,40 @@ rename = {
 fields_to_remove = ['Period Ending', 'CLDR Territory Code', 'Legal Process']
 
 year_pattern = re.compile('([0-9]+)-[0-9]+-[0-9]+')
+countries_once = {}
 for country in google_data:
     if country['Country'] in rename:
         country['Country'] = rename[country['Country']]
     
     country['Year'] = year_pattern.match(country['Period Ending']).group(1)
 
+    key = country['Year'] + country['Country']
+    if not key in countries_once:
+        countries_once[key] = country
+        reqs = int(country['User Data Requests'])
+        country['User Data Requests'] = reqs
+        country['Users/Accounts Specified'] = int(country['Users/Accounts Specified'] or 0)
+        percantage = int(country['Percentage of requests where some data produced'] or '0')
+        country['rejected']  = reqs * (1 -  percantage/ 100)
+    else:
+        existing = countries_once[key]
+        reqs = int(country['User Data Requests'])
+        existing['User Data Requests'] += reqs
+        existing['Users/Accounts Specified'] = existing['Users/Accounts Specified'] + int(country['Users/Accounts Specified'] or 0)
+    
+for country_key in countries_once:
+    country = countries_once[country_key]
+    reqs = int(country['User Data Requests'])
+    rej = int(country['rejected'] or '0')
+    if rej != 0:
+        country['percentAccepted'] = rej / reqs
+    else:
+        country['percentAccepted'] = 0
+    country.pop( 'rejected')
     for field in fields_to_remove:
         country.pop(field)
 
+google_data = countries_once.values()
 
 headers = ['id', 'Year'] + google_headers
 for field in fields_to_remove:
