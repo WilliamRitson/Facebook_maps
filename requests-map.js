@@ -111,9 +111,9 @@ function brushed() {
 
 
     var range = d3.brushSelection(this)
-        //.map(xAxisScale);
-        .map(xAxisScale.invert);
-        //.map(brush.invert);
+    //.map(xAxisScale);
+    //.map(xAxisScale.invert);
+    //.map(brush.invert);
 
     d3.select("#double-slider")
         .text(function (d, i) {
@@ -223,7 +223,9 @@ var startDate = new Date(2013, 0, 1);
 // var x = d3.brushX()
 var xAxisScale = d3.scaleTime()
     .domain([startDate, endDate])
-    .rangeRound([0, width]);
+    .rangeRound([0, width])
+    .clamp(true)
+//.snap(true);
 //.rangeRound([0, 1000]);
 
 var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));//.tickSize(0).tickPadding(20);
@@ -243,7 +245,7 @@ var brushg = svg2.append("g")
     .call(brush)
 
 // this is breaking the ui
-// brush.move(brushg, [startDate, endDate].map(xAxisScale));
+//brush.move(brushg, [startDate, endDate].map(xAxisScale));
 
 
 queue()
