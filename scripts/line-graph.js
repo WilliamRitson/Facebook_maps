@@ -160,7 +160,8 @@ export function makeLineGraph(data) {
                     let target = null;
                     let pos;
 
-                    while (true) {
+                    let done = false;
+                    while (!done) {
                         target = Math.floor((beginning + end) / 2);
                         pos = lines[i].getPointAtLength(target);
                         if (
@@ -171,7 +172,7 @@ export function makeLineGraph(data) {
                         }
                         if (pos.x > mouse[0]) end = target;
                         else if (pos.x < mouse[0]) beginning = target;
-                        else break; //position found
+                        else done = true; //position found
                     }
 
                     d3.select(this)

@@ -7,6 +7,10 @@
     "parserOptions": {
         "sourceType": "module"
     },
+    "globals": {
+        "topojson": true,
+        "queue": false
+    },
     "rules": {
         "indent": [
             "error",
