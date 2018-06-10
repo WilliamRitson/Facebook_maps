@@ -48,7 +48,7 @@ var svg = d3.select("#geomap")
 var svg2 = d3.select("#double-slider")
     .append("svg")
     //.attr("id", "double-slider")
-    .attr("width", width)
+    .attr("width", 600)
     .attr("height", 100)
     .append("g")
     .attr("class", "map");
@@ -334,7 +334,7 @@ function brushed() {
 var brush = d3.brushX()
     //.extent([[startDate, 0], [endDate, 1000]])
     //.x(xAxisScale)
-    .extent([[20, 0], [520, 100]]) 
+    .extent([[0, 0], [520, 100]]) 
     .on("brush", brushed);
     //.on("brush", brushended);
     //.on('end', function() {
@@ -347,7 +347,7 @@ var brush = d3.brushX()
 var brushg = svg2.append("g")
     .attr("class", "brush")
     .call(brush)
-
+    .attr('transform', 'translate(20, 50)')
     //brushg.attr('transform', 'translate(50, 50)')
     //brushg.selectAll('rect').attr('height', height)
     //brushg.selectAll('.overlay')
