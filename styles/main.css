@@ -7,6 +7,11 @@
 /* Import the CSS for the tooltips*/
 @import "tooltip.css";
 
+
+footer a {
+  display: block;
+}
+
 #line-chart {
   margin-left: -40px;
 }
