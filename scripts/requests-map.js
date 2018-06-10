@@ -1,10 +1,9 @@
 import d3 from "https://dev.jspm.io/d3";
 import topojson from "https://dev.jspm.io/topojson";
-
+import { makeSlider } from "./double-slider.js";
+import { VerticalLegend } from "./legend.js";
 import { makeLineGraph, makeLineGraphData } from "./line-graph.js";
 import { tip } from "./tooltip-config.js";
-import { VerticalLegend } from "./legend.js";
-import { drawSlider } from "./double-slider.js";
 
 const margin = {
         top: 0,
@@ -98,7 +97,9 @@ function toggleCountry(requestData, country, yearLow, yearHigh) {
     );
 }
 
+let currentData = null;
 function setData(geoData, request_data, yearLow, yearHigh) {
+    currentData = request_data;
     makeLineGraph(
         makeLineGraphData(
             request_data,
@@ -189,12 +190,7 @@ Promise.all([
     d3.tsv("data/microsoft_output/all_microsoft.tsv")
 ]).then(data => ready(...data));
 
-function ready(
-    geoData,
-    facebookRequests,
-    googleRequests,
-    microsoftRequests
-) {
+function ready(geoData, facebookRequests, googleRequests, microsoftRequests) {
     const buttons = [
         { id: "select-facebook", data: facebookRequests },
         { id: "select-google", data: googleRequests },
@@ -213,8 +209,12 @@ function ready(
             }
         });
     }
-    
+
+    makeSlider((yearLow, yearHigh) => {
+        console.log('Set Range', +yearLow, +yearHigh);
+        setData(geoData, currentData, +yearLow, +yearHigh);
+    });
+
     document.getElementById(buttons[0].id).setAttribute("disabled", "true");
     setData(geoData, buttons[0].data, 2013, 2017);
-    drawSlider();
 }

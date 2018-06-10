@@ -12,6 +12,11 @@ footer a {
   display: block;
 }
 
+#double-slider {
+  margin-left: 200px;
+  margin-top: -150px;
+}
+
 #line-chart {
   margin-left: -40px;
 }
