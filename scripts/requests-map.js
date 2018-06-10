@@ -1,6 +1,7 @@
 import { makeLineGraph, makeLineGraphData } from "./line-graph.js";
 import { tip } from "./tooltip-config.js";
 import { VerticalLegend } from "./legend.js";
+import { drawSlider } from "./double-slider.js";
 
 const margin = {
         top: 0,
@@ -153,8 +154,10 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .on("click", function(d) {
             if (requestsById[d.id] > 0)
                 toggleCountry(request_data, names[d.id], yearLow, yearHigh);
-            d3.select(this)
-                .classed("selected", countriesToGraph.has(names[d.id]));
+            d3.select(this).classed(
+                "selected",
+                countriesToGraph.has(names[d.id])
+            );
         });
 
     svg.append("path")
@@ -172,9 +175,10 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .attr("class", "legendLinear")
         .attr("transform", "translate(30,330)");
 
-    let legend = new VerticalLegend(svg, colorThresholds, colorNames, x => Math.pow(x, 1/4));
+    let legend = new VerticalLegend(svg, colorThresholds, colorNames, x =>
+        Math.pow(x, 1 / 4)
+    );
     legend.draw(40, 60, 20, 437);
-
 }
 
 queue()
@@ -193,4 +197,6 @@ function ready(error, geoData, facebookRequets, googleRequets) {
     });
 
     setData(geoData, facebookRequets, 2013, 2017);
+    drawSlider();
 }
+
