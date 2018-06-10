@@ -63,6 +63,8 @@ var path = d3.geoPath().projection(projection);
 svg.call(tip);
 
 // Percentage merge still has bugs
+// what if I only want data for 2017?
+// do I use startYear = 2017 and endYear = 2018 as parameters or just both as 2017
 function mergeYears(data, startYear, endYear) {
     let countries = new Map();
     for (let year = startYear; year <= endYear; year++) {
@@ -301,20 +303,19 @@ function brushed() {
     if (!d3.event.sourceEvent) return; // Only transition after input.
     //if (!d3.event.selection) return; // Ignore empty selections.
     if (d3.event.sourceEvent.type === "brush") return;
+    var formatTime = d3.timeFormat("%Y");
     var d0 = d3.event.selection.map(xAxisScale.invert),
         //d1 = d0.map(xAxisScale);
         //d1 = d0.map(Math.ceil); //use Math.round as a parameter for temp fix !problem is brush won't go to the end of axis
         //d1 = d0.map(function () {return d3.timeYear});
         d1 = d0.map(d3.timeYear.round);
         //d1 = d0.map(d3.timeYear);
-        //trying to extend the brush range to end of axis but this condition doesn't work
-        //if (d1[1] == 1483257600000) {
-            //d1[1] = new Date(2017, 0, 1);
-            //d1[1] = d3.timeYear;
-        //}
+        
+    var begTime = formatTime(d1[0]);
+    var enTime = formatTime(d1[1]) - 1;
     
-    console.log(d0);
-    console.log(d1);
+    //console.log(d0);
+    //console.log(d1);
     //if (d1[1] >= 1483257600000) {
         //d1[1] = endDate;
         //d1[1] = xAxisScale(endDate);
@@ -326,6 +327,12 @@ function brushed() {
       d1[1] = d3.timeYear.offset(d1[0]);//d1[0] + 1;
       //d1[0] = Math.floor(d0[0]);
       //d1[1] = d1[0] + 1;
+      //console.log(d1[0]);
+      //console.log(d1[1]);
+      console.log(formatTime(d1[0]));
+      console.log(formatTime(d1[1]) - 1);
+      begTime = formatTime(d1[0]);
+      enTime = formatTime(d1[1]) - 1;
     }
   
     d3.select(this).call(d3.event.target.move, d1.map(xAxisScale));
@@ -373,18 +380,20 @@ queue()
     .defer(d3.tsv, "data/google_output/all_google.tsv")
     .await(ready);
 
-
-function ready(error, geoData, facebookRequets, googleRequets) {
+// do I add parameters to ready such as beginYear and finishYear and pass them in?
+// and replace hardcoded 2013 to 2017... 
+// begin year is the year left handle snaps to and end year is handle right handle snaps to -1
+function ready(error, geoData, facebookRequets, googleRequets, beginYear, finishYear) {
 
     document.getElementById("select-facebook").addEventListener("click", () => {
-        setData(geoData, facebookRequets, 2013, 2017);
+        setData(geoData, facebookRequets, 2013, 2013);
     });
 
     document.getElementById("select-google").addEventListener("click", () => {
-        setData(geoData, googleRequets, 2013, 2017);
+        setData(geoData, googleRequets, 2013, 2013);
     });
 
-    setData(geoData, facebookRequets, 2013, 2017);
+    setData(geoData, facebookRequets, 2013, 2013);
 
 
 
