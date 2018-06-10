@@ -41,7 +41,6 @@ const projection = d3
 
 const path = d3.geoPath().projection(projection);
 
-svg.call(tip);
 
 // Percentage merge still has bugs
 function mergeYears(data, startYear, endYear) {
@@ -148,8 +147,8 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .on("mouseover", function(d) {
             tip.show(d);
         })
-        .on("mouseout", function(d) {
-            tip.hide(d);
+        .on("mouseout", function() {
+            tip.hide();
         })
         .on("click", function(d) {
             if (requestsById[d.id] > 0)

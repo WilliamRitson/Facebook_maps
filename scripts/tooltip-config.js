@@ -1,4 +1,6 @@
-var format = d3.format(",");
+import { Tooltip } from "./tooltip.js";
+
+const format = d3.format(",");
 
 function makeTip(name, requests, accounts, provided, approval) {
     return `
@@ -10,17 +12,17 @@ function makeTip(name, requests, accounts, provided, approval) {
             <td align='right'>${name}</td>
         </tr>
         <tr>
-            <th align='left'># Requests</th>
+            <th align='left'>Number of Requests</th>
             <td align='center'>:</td>
             <td align='right'>${requests}</td>
         </tr>
         <tr>
-            <th align='left'># Accounts</th>
+            <th align='left'>Number of Accounts</th>
             <td align='center'>:</td>
             <td align='right'>${accounts}</td>
         </tr>
         <tr>
-            <th align='left'>Data Provided</th>
+            <th align='left'>Times Data was Provided</th>
             <td align='center'>:</td>
             <td align='right'>${provided}</td>
         </tr>
@@ -33,27 +35,24 @@ function makeTip(name, requests, accounts, provided, approval) {
     `;
 }
 
-// Set tooltips
-export const tip = d3
-    .tip()
-    .attr("class", "d3-tip")
-    .offset([100, 0])
-    .html(function(d) {
-        if (isNaN(d.requests) || d.requests == 0) {
-            return makeTip(
-                d.properties.name,
-                "No Requests Made",
-                "0",
-                "Not Applicable",
-                "Not Applicable"
-            );
-        } else {
-            return makeTip(
-                d.properties.name,
-                format(d.requests),
-                format(d.accounts),
-                format(Math.round((d.requests * d.rate) / 100)),
-                Math.round(d.rate) + "%"
-            );
-        }
-    });
+function datapointToHtml(d) {
+    if (isNaN(d.requests) || d.requests == 0) {
+        return makeTip(
+            d.properties.name,
+            "No Requests Made",
+            "0",
+            "Not Applicable",
+            "Not Applicable"
+        );
+    } else {
+        return makeTip(
+            d.properties.name,
+            format(d.requests),
+            format(d.accounts),
+            format(Math.round((d.requests * d.rate) / 100)),
+            Math.round(d.rate) + "%"
+        );
+    }
+}
+
+export const tip = new Tooltip(datapointToHtml);

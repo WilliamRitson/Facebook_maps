@@ -1,6 +1,7 @@
 :root {
   /* Color of tootlip background */
-  --tip-color: rgb(245, 245, 247);
+  --tip-color: whitesmoke;
+  --tip-border: rgb(17, 17, 17);
 
   /* Color of country borders when unselected */
   --border-color: white;
