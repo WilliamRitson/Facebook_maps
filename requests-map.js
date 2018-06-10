@@ -311,8 +311,8 @@ function brushed() {
         d1 = d0.map(d3.timeYear.round);
         //d1 = d0.map(d3.timeYear);
         
-    var begTime = formatTime(d1[0]);
-    var enTime = formatTime(d1[1]) - 1;
+    var enTime = formatTime(d1[0]);
+    var begTime = formatTime(d1[1]) - 1;
     
     //console.log(d0);
     //console.log(d1);
