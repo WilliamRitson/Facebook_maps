@@ -17,9 +17,23 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
             let row = goalCountries.get(country.country);
             row.values.push({
                 id: new Date(country.year),
-                value: parseInt(country.requests)
+                value: parseInt(country.requests),
+                year: country.year
             });
         }
+    }
+    
+    for (let goalCountry of goalCountries.values()) {
+        for (let year = rangeLow; year <= rangeHigh; year++) {
+            if (!goalCountry.values.find(v => parseInt(v.year) === year )) {
+                goalCountry.values.push({
+                    id: new Date(year.toString()),
+                    value: 0,
+                    year: year
+                });
+            }
+        }
+        goalCountry.values.sort((a, b) => a.year - b.year);
     }
 
     return Array.from(goalCountries.values());
