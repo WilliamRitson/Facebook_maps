@@ -23,6 +23,10 @@
   cursor: pointer;
 }
 
+#toggle-area button:hover {
+  filter: brightness(125%);
+}
+
 #select-facebook {
   background-color: #3b5998;
   color: white;
