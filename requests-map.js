@@ -31,6 +31,7 @@ var margin = {
     left: 0
 },
     width = 960 - margin.left - margin.right,
+    //width = 980;
     height = 500 - margin.top - margin.bottom;
 
 var color = d3.scaleThreshold()
@@ -47,7 +48,7 @@ var svg = d3.select("#geomap")
 var svg2 = d3.select("#double-slider")
     .append("svg")
     //.attr("id", "double-slider")
-    .attr("width", 1000)
+    .attr("width", width)
     .attr("height", 100)
     .append("g")
     .attr("class", "map");
@@ -86,7 +87,7 @@ function mergeYears(data, startYear, endYear) {
     return Array.from(countries.values());
 }
 
-function brushed() {
+/*function brushed() {
     /*
       The brush attributes are no longer stored 
       in the brush itself, but rather in the 
@@ -109,7 +110,7 @@ function brushed() {
       .text(Math.round(brush.extent()[1]));
     */
 
-
+/*
     var range = d3.brushSelection(this)
     //.map(xAxisScale.invert(1))
     .map(xAxisScale.invert(this));
@@ -121,7 +122,7 @@ function brushed() {
         .text(function (d, i) {
             return Math.round(range[i])
         })
-}
+} */
 
 const defaultGraphCountries = ["United States", "India", "United Kingdom", "Germany", "France", "Canada"];
 const countriesToGraph = new Set();
@@ -255,20 +256,22 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 }
 
 var padding = 20;
-var endDate = new Date(2017, 0, 1);// - 1;
+var endDate = new Date(2018, 0, 1);
 var startDate = new Date(2013, 0, 1);
-console.log(startDate);
+//console.log(startDate); //720
+//console.log(endDate);
 
 // var x = d3.brushX()
 var xAxisScale = d3.scaleTime()
     .domain([startDate, endDate])
-    .rangeRound([0, width]) // adjusts size of slider
+    .range([0, 500]) // adjusts size of xaxisline 500 was width previously
     //.rangeRound([0, 4])
     .clamp(true)
     //.snap(true);
 //.rangeRound([0, 1000]);
 
-console.log(xAxisScale(new Date(2016, 0, 1))) // this prints out as 720
+console.log(xAxisScale(new Date(2018, 0, 1))) // this prints out as 500
+console.log(xAxisScale(new Date(2013, 0, 1))) // 0
 
 var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));//.tickSize(0).tickPadding(20);
 
@@ -276,17 +279,70 @@ var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));//.tickSiz
 //.tickPadding(20);
 
 svg2.append("g").attr("transform", "translate(20,80)").call(xAxis.ticks(d3.timeYear));
+console.log(xAxis.length);
+
+function brushended() {
+    if (!d3.event.sourceEvent) return; // Only transition after input.
+    if (!d3.event.selection) return; // Ignore empty selections.
+    var d0 = d3.event.selection.map(xAxisScale.invert),
+        d1 = d0.map(d3.timeYear.round);
+  
+    // If empty when rounded, use floor & ceil instead.
+    if (d1[0] >= d1[1]) {
+      d1[0] = d3.timeYear.floor(d0[0]);
+      d1[1] = d3.timeYear.offset(d1[0]);
+    }
+  
+    d3.select(this).call(d3.event.target.move, d1.map(xAxisScale));
+}
+
+// using this function not brushended
+function brushed() {
+    if (!d3.event.sourceEvent) return; // Only transition after input.
+    //if (!d3.event.selection) return; // Ignore empty selections.
+    if (d3.event.sourceEvent.type === "brush") return;
+    var d0 = d3.event.selection.map(xAxisScale.invert),
+        //d1 = d0.map(xAxisScale);
+        d1 = d0.map(Math.ceil); //use Math.round as a parameter for temp fix !problem is brush won't go to the end of axis
+        //d1 = d0.map(function () {return d3.timeYear});
+        //d1 = d0.map(d3.timeYear.round);
+        //d1 = d0.map(d3.timeYear);
+        //trying to extend the brush range to end of axis but this condition doesn't work
+        //if (d1[1] == 1483257600000) {
+            //d1[1] = new Date(2017, 0, 1);
+            //d1[1] = d3.timeYear;
+        //}
+    
+    console.log(d0);
+    console.log(d1);
+    //if (d1[1] >= 1483257600000) {
+        //d1[1] = endDate;
+        //d1[1] = xAxisScale(endDate);
+    //}
+  
+    // If empty when rounded, use floor instead.
+    if (d1[0] >= d1[1]) {
+      //d1[0] = d3.timeYear.floor(d0[0]);//Math.floor(d0[0]);
+      //d1[1] = d3.timeYear.offset(d1[0]);//d1[0] + 1;
+      d1[0] = Math.floor(d0[0]);
+      d1[1] = d1[0] + 1;
+    }
+  
+    d3.select(this).call(d3.event.target.move, d1.map(xAxisScale));
+}
 
 var brush = d3.brushX()
     //.extent([[startDate, 0], [endDate, 1000]])
     //.x(xAxisScale)
-    .extent([[0, 0], [1000, 100]]) // dealin with the selection and range of brush region
-    //.on("brush", brushed);
-    .on('end', function() {
-        if (d3.event.sourceEvent.type === "brush") return;
+    .extent([[20, 0], [520, 100]]) 
+    .on("brush", brushed);
+    //.on("brush", brushended);
+    //.on('end', function() {
+        //if (d3.event.sourceEvent.type === "brush") return;
 
-        console.log(d3.event.selection.map(xAxisScale.invert))
-    })
+        //console.log(d3.event.selection.map(xAxisScale.invert))
+    //})
+
 
 var brushg = svg2.append("g")
     .attr("class", "brush")
