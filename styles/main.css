@@ -14,7 +14,7 @@
 #toggle-area {
   margin-top: -50px;
   position: relative;
-  width: 4700px;
+  width: 470px;
   left: 280px;
   bottom: -60px;
 }
@@ -32,17 +32,17 @@
 }
 
 #select-facebook {
-  background-color: #3b5998;
+  background-color: var(--facebook-theme-color);
   color: white;
 }
 
 #select-google {
-  background-color: rgb(234, 67, 53);
+  background-color: var(--google-theme-color);
   color: white;
 }
 
 #select-microsoft {
-  background-color: #81bb05;
+  background-color: var(--microsoft-theme-color);
   color: white;
 }
 

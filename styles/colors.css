@@ -10,6 +10,11 @@
 
   /* Color of country when selected for graphing */
   --selected-color: rgb(219, 131, 59);
+
+  --facebook-theme-color: #3b5998;
+  --google-theme-color: rgb(234, 67, 53);
+  --microsoft-theme-color: #81bb05;
+
 }
 
 /* Color scheme for the geomap */
