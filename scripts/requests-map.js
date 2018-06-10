@@ -1,5 +1,6 @@
 import { makeLineGraph, makeLineGraphData } from "./line-graph.js";
 import { tip } from "./tooltip-config.js";
+import { Legend } from "./legend.js";
 
 const margin = {
         top: 0,
@@ -10,17 +11,19 @@ const margin = {
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
+const colorNames = [
+    "map-empty-color",
+    "map-color-1",
+    "map-color-2",
+    "map-color-3",
+    "map-color-4",
+    "map-color-5"
+];
+const colorThresholds = [0, 25, 250, 2500, 25000, 210000];
 const color = d3
     .scaleThreshold()
-    .domain([0, 25, 250, 2500, 25000, 205000])
-    .range([
-        "rgb(150,150,150)",
-        "rgb(254,240,217)",
-        "rgb(253,204,138)",
-        "rgb(252,141,89)",
-        "rgb(227,74,51)",
-        "rgb(179,0,0)"
-    ]);
+    .domain(colorThresholds)
+    .range(colorNames);
 
 const svg = d3
     .select("#geomap")
@@ -132,17 +135,13 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .data(geoData.features)
         .enter()
         .append("path")
-        .attr("class", "country")
-
         .attr("d", path)
-
-        .style("fill", function(d) {
-            let colorVal =
-                requestsById[d.id] == 0 || isNaN(requestsById[d.id])
-                    ? -1
-                    : requestsById[d.id];
-            return color(colorVal);
+        .attr("class", function(d) {
+            if (requestsById[d.id] == 0 || isNaN(requestsById[d.id]))
+                return "map-empty-color";
+            return color(requestsById[d.id]);
         })
+        .classed("country", true)
 
         // tooltips
         .on("mouseover", function(d) {
@@ -156,9 +155,13 @@ function setData(geoData, request_data, yearLow, yearHigh) {
                 toggleCountry(request_data, names[d.id], yearLow, yearHigh);
 
             if (countriesToGraph.has(names[d.id])) {
-                d3.select(this).attr("class", "selected");
+                d3.select(this)
+                    .classed("country", false)
+                    .classed("selected", true);
             } else {
-                d3.select(this).attr("class", "country");
+                d3.select(this)
+                    .classed("country", true)
+                    .classed("selected", false);
             }
         });
 
@@ -177,22 +180,10 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .attr("class", "legendLinear")
         .attr("transform", "translate(30,330)");
 
-    var legendIndex = 0;
-    var legendLinear = d3
-        .legendColor()
-        .shapeWidth(45)
-        .shapeHeight(10)
-        .title("Government Data Requests")
-        .orient("vertical")
-        .scale(color)
-        .labelFormat(d => {
-            if (isNaN(d)) return 0;
-            legendIndex++;
-            if (legendIndex % 2 == 0) return d + 1;
-            return d;
-        });
+    let legend = new Legend(svg, colorThresholds, colorNames);
 
-    svg.select(".legendLinear").call(legendLinear);
+    legend.draw(40, 60, 20, 420);
+
 }
 
 queue()

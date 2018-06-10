@@ -11,3 +11,11 @@
   /* Color of country when selected for graphing */
   --selected-color: rgb(219, 131, 59);
 }
+
+/* Color scheme for the geomap */
+.map-empty-color { fill: rgb(150,150,150)}
+.map-color-1 { fill: rgb(253,212,158) }
+.map-color-2 { fill: rgb(253,187,132) }
+.map-color-3 { fill: rgb(252,141,89) }
+.map-color-4 { fill: rgb(227,74,51) }
+.map-color-5 { fill: rgb(179,0,0) }
