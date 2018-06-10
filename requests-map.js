@@ -111,8 +111,10 @@ function brushed() {
 
 
     var range = d3.brushSelection(this)
+    //.map(xAxisScale.invert(1))
+    .map(xAxisScale.invert(this));
     //.map(xAxisScale);
-    //.map(xAxisScale.invert);
+    //.map(xAxisScale.invert); //try this one again!
     //.map(brush.invert);
 
     d3.select("#double-slider")
@@ -253,16 +255,20 @@ function setData(geoData, request_data, yearLow, yearHigh) {
 }
 
 var padding = 20;
-var endDate = new Date(2017, 0, 1);
+var endDate = new Date(2017, 0, 1);// - 1;
 var startDate = new Date(2013, 0, 1);
+console.log(startDate);
 
 // var x = d3.brushX()
 var xAxisScale = d3.scaleTime()
     .domain([startDate, endDate])
-    .rangeRound([0, width])
+    .rangeRound([0, width]) // adjusts size of slider
+    //.rangeRound([0, 4])
     .clamp(true)
-//.snap(true);
+    //.snap(true);
 //.rangeRound([0, 1000]);
+
+console.log(xAxisScale(new Date(2016, 0, 1))) // this prints out as 720
 
 var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));//.tickSize(0).tickPadding(20);
 
@@ -272,16 +278,37 @@ var xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));//.tickSiz
 svg2.append("g").attr("transform", "translate(20,80)").call(xAxis.ticks(d3.timeYear));
 
 var brush = d3.brushX()
-    //.extent([[startDate, endDate], [100, 1000]])
-    .extent([[0, 0], [100, 1000]])
-    .on("brush", brushed);
+    //.extent([[startDate, 0], [endDate, 1000]])
+    //.x(xAxisScale)
+    .extent([[0, 0], [1000, 100]]) // dealin with the selection and range of brush region
+    //.on("brush", brushed);
+    .on('end', function() {
+        if (d3.event.sourceEvent.type === "brush") return;
+
+        console.log(d3.event.selection.map(xAxisScale.invert))
+    })
 
 var brushg = svg2.append("g")
     .attr("class", "brush")
     .call(brush)
 
+    //brushg.attr('transform', 'translate(50, 50)')
+    //brushg.selectAll('rect').attr('height', height)
+    //brushg.selectAll('.overlay')
+      //.style('fill', '#4b9e9e')
+    //brushg.selectAll('.selection')
+      //.attr('fill', null)
+      //.attr('fill-opacity', 1)
+      //.style('fill', '#78c5c5')
+    brushg.selectAll('rect.handle')
+      .style('fill', '#276c86')
+    
+    //brush.move(brushg, [22, 28].map(xAxisScale))
+    //brush.move(brushg, [startDate, endDate].map(xAxisScale))
+
 // this is breaking the ui
-//brush.move(brushg, [startDate, endDate].map(xAxisScale));
+//brush.move(brushg, [2013, 2017].map(xAxisScale));
+//brush.move(brushg, [startDate, endDate].map(xAxis));
 
 
 queue()
@@ -306,3 +333,37 @@ function ready(error, geoData, facebookRequets, googleRequets) {
 
 
 }
+/*
+    // Render the slider in the div and give it functionality
+    d3.select('#slider').call(slider
+        .on("slide", function (evt, targetyear) {
+            d3.select("#handle-one").select(".yearBox")
+                .html(targetyear[0]);
+            d3.select("#handle-two").select(".yearBox")
+                .html(targetyear[1]);
+            svg.selectAll(".fire").each(function (d) {
+                if (d.values[0].properties.year > targetyear[0] && d.values[0].properties.year < targetyear[1]) {
+                    //this.style.opactiy += 0.8;
+                    this.setAttribute("hoverable", "true");
+                    //this.style.opacity = (d.values[0].properties.year > targetyear[0] && d.values[0].properties.year < targetyear[1]) ? .8 : 0;
+                    // iterate through fires, only display fires in slider range
+                    //this.style.opacity = (d.values[0].properties.year > targetyear[0] && d.values[0].properties.year < targetyear[1]) ? .8 : 0;
+                } else {
+                    //this.style.opacity += 0;
+                    //this.style.opacity = (d.values[0].properties.year > targetyear[0] && d.values[0].properties.year < targetyear[1]) ? .8 : 0;
+                    this.setAttribute("hoverable", "false");
+                }
+                this.style.fillOpacity = (d.values[0].properties.year > targetyear[0] && d.values[0].properties.year < targetyear[1]) ? .5 : 0;
+            })
+        })
+    )
+    .selectAll(".d3-slider-handle")
+        .append("div")
+        .attr("class", "yearBox")
+    
+    d3.select("#handle-one").select(".yearBox")
+        .html("1895");
+    d3.select("#handle-two").select(".yearBox")
+        .html("2015");
+        */
+
