@@ -27,7 +27,7 @@ function makeTip(name, requests, accounts, provided, approval) {
         <tr>
             <th align='left'>Approval Rate</th>
             <td align='center'>:</td>
-            <td align='right'>${approval}e</td>
+            <td align='right'>${approval}</td>
         </tr>
         </table>
     `;
