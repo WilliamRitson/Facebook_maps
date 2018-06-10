@@ -1,11 +1,37 @@
 /* Import the color scheme*/
 @import "colors.css";
 /* Import the CSS for the GeoMap */
-@import "map.css"; 
- /* Import the CSS for the Line Chart */
+@import "map.css";
+/* Import the CSS for the Line Chart */
 @import "graph.css";
 /* Import the CSS for the tooltips*/
-@import "tooltip.css"; 
+@import "tooltip.css";
+
+#toggle-area {
+  margin-top: -50px;
+  position: relative;
+  width: 320px;
+  left: 350px;
+  bottom: -60px;
+}
+
+#toggle-area button {
+  border: 2px solid;
+  padding: 14px 28px;
+  font-size: 16px;
+  width: 150px;
+  cursor: pointer;
+}
+
+#select-facebook {
+  background-color: #3b5998;
+  color: white;
+}
+
+#select-google {
+  background-color: rgb(234, 67, 53);
+  color: white;
+}
 
 /* Define the CSS for the rest of the document (header, layout, ect) */
 h1 {
