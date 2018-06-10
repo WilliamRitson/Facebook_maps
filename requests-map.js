@@ -303,9 +303,9 @@ function brushed() {
     if (d3.event.sourceEvent.type === "brush") return;
     var d0 = d3.event.selection.map(xAxisScale.invert),
         //d1 = d0.map(xAxisScale);
-        d1 = d0.map(Math.ceil); //use Math.round as a parameter for temp fix !problem is brush won't go to the end of axis
+        //d1 = d0.map(Math.ceil); //use Math.round as a parameter for temp fix !problem is brush won't go to the end of axis
         //d1 = d0.map(function () {return d3.timeYear});
-        //d1 = d0.map(d3.timeYear.round);
+        d1 = d0.map(d3.timeYear.round);
         //d1 = d0.map(d3.timeYear);
         //trying to extend the brush range to end of axis but this condition doesn't work
         //if (d1[1] == 1483257600000) {
@@ -322,10 +322,10 @@ function brushed() {
   
     // If empty when rounded, use floor instead.
     if (d1[0] >= d1[1]) {
-      //d1[0] = d3.timeYear.floor(d0[0]);//Math.floor(d0[0]);
-      //d1[1] = d3.timeYear.offset(d1[0]);//d1[0] + 1;
-      d1[0] = Math.floor(d0[0]);
-      d1[1] = d1[0] + 1;
+      d1[0] = d3.timeYear.floor(d0[0]);//Math.floor(d0[0]);
+      d1[1] = d3.timeYear.offset(d1[0]);//d1[0] + 1;
+      //d1[0] = Math.floor(d0[0]);
+      //d1[1] = d1[0] + 1;
     }
   
     d3.select(this).call(d3.event.target.move, d1.map(xAxisScale));
