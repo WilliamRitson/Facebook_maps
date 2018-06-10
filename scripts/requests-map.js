@@ -97,9 +97,16 @@ function toggleCountry(requestData, country, yearLow, yearHigh) {
     );
 }
 
-let currentData = null;
+let settings = {
+    data: null,
+    yearLow: 2013,
+    yearHigh: 2017
+};
 function setData(geoData, request_data, yearLow, yearHigh) {
-    currentData = request_data;
+    settings.data = request_data;
+    settings.yearLow = yearLow;
+    settings.yearHigh = yearHigh;
+
     makeLineGraph(
         makeLineGraphData(
             request_data,
@@ -199,7 +206,7 @@ function ready(geoData, facebookRequests, googleRequests, microsoftRequests) {
 
     for (let button of buttons) {
         document.getElementById(button.id).addEventListener("click", () => {
-            setData(geoData, button.data, 2013, 2017);
+            setData(geoData, button.data, settings.yearLow, settings.yearHigh);
             document.getElementById(button.id).setAttribute("disabled", "true");
             for (let otherButton of buttons) {
                 if (otherButton.id != button.id)
@@ -211,8 +218,12 @@ function ready(geoData, facebookRequests, googleRequests, microsoftRequests) {
     }
 
     makeSlider((yearLow, yearHigh) => {
-        console.log('Set Range', +yearLow, +yearHigh);
-        setData(geoData, currentData, +yearLow, +yearHigh);
+        let newLow = +yearLow;
+        let newHigh = +yearHigh;
+        if (settings.yearLow === newLow && settings.yearHigh === newHigh)
+            return;
+
+        setData(geoData, settings.data, +yearLow, +yearHigh);
     });
 
     document.getElementById(buttons[0].id).setAttribute("disabled", "true");
