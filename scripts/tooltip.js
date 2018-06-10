@@ -9,6 +9,7 @@ export class Tooltip {
 
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
+        this.hide();
     }
 
     show(data) {
@@ -20,6 +21,7 @@ export class Tooltip {
         this.element.style.opacity = "0";
     }
 
+    // Adapted from https://stackoverflow.com/a/7790764/1078437
     handleMouseMove(event) {
         let eventDoc, doc, body;
 
@@ -43,7 +45,6 @@ export class Tooltip {
                 ((doc && doc.clientTop) || (body && body.clientTop) || 0);
         }
 
-        // Use event.pageX / event.pageY here
         this.element.style.left = event.pageX + 30 + "px";
         this.element.style.top = event.pageY - this.element.offsetHeight / 2 + "px";
     }
