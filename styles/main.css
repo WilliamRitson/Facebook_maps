@@ -35,6 +35,10 @@ footer a {
 #toggle-area button:hover {
   filter: brightness(125%);
 }
+#toggle-area button:disabled {
+  filter: brightness(75%);
+  border: none;
+}
 
 #select-facebook {
   background-color: var(--facebook-theme-color);

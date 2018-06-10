@@ -1,3 +1,5 @@
+import d3 from "https://dev.jspm.io/d3";
+
 export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
     let goalCountries = new Map();
     for (let countryName of countries) {

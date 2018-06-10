@@ -1,3 +1,4 @@
+import d3 from "https://dev.jspm.io/d3";
 import { Tooltip } from "./tooltip.js";
 
 const format = d3.format(",");

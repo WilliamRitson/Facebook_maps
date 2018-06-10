@@ -1,3 +1,6 @@
+import d3 from "https://dev.jspm.io/d3";
+
+
 const margin = {
         top: 0,
         right: 0,

@@ -1,3 +1,6 @@
+import d3 from "https://dev.jspm.io/d3";
+import topojson from "https://dev.jspm.io/topojson";
+
 import { makeLineGraph, makeLineGraphData } from "./line-graph.js";
 import { tip } from "./tooltip-config.js";
 import { VerticalLegend } from "./legend.js";
@@ -40,7 +43,6 @@ const projection = d3
     .translate([width / 2, height / 1.5]);
 
 const path = d3.geoPath().projection(projection);
-
 
 // Percentage merge still has bugs
 function mergeYears(data, startYear, endYear) {
@@ -180,27 +182,39 @@ function setData(geoData, request_data, yearLow, yearHigh) {
     legend.draw(40, 60, 20, 437);
 }
 
-queue()
-    .defer(d3.json, "data/world_countries.json")
-    .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
-    .defer(d3.tsv, "data/google_output/all_google.tsv")
-    .defer(d3.tsv, "data/microsoft_output/all_microsoft.tsv")
-    .await(ready);
+Promise.all([
+    d3.json("data/world_countries.json"),
+    d3.tsv("data/facebook_output/all_facebook.tsv"),
+    d3.tsv("data/google_output/all_google.tsv"),
+    d3.tsv("data/microsoft_output/all_microsoft.tsv")
+]).then(data => ready(...data));
 
-function ready(error, geoData, facebookRequests, googleRequests, microsoftRequests) {
-    document.getElementById("select-facebook").addEventListener("click", () => {
-        setData(geoData, facebookRequests, 2013, 2017);
-    });
+function ready(
+    geoData,
+    facebookRequests,
+    googleRequests,
+    microsoftRequests
+) {
+    const buttons = [
+        { id: "select-facebook", data: facebookRequests },
+        { id: "select-google", data: googleRequests },
+        { id: "select-microsoft", data: microsoftRequests }
+    ];
 
-    document.getElementById("select-google").addEventListener("click", () => {
-        setData(geoData, googleRequests, 2013, 2017);
-    });
-
-    document.getElementById("select-microsoft").addEventListener("click", () => {
-        setData(geoData, microsoftRequests, 2013, 2017);
-    });
-
-    setData(geoData, facebookRequests, 2013, 2017);
+    for (let button of buttons) {
+        document.getElementById(button.id).addEventListener("click", () => {
+            setData(geoData, button.data, 2013, 2017);
+            document.getElementById(button.id).setAttribute("disabled", "true");
+            for (let otherButton of buttons) {
+                if (otherButton.id != button.id)
+                    document
+                        .getElementById(otherButton.id)
+                        .removeAttribute("disabled");
+            }
+        });
+    }
+    
+    document.getElementById(buttons[0].id).setAttribute("disabled", "true");
+    setData(geoData, buttons[0].data, 2013, 2017);
     drawSlider();
 }
-
