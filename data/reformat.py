@@ -6,9 +6,7 @@ import sys
 import os
 
 
-abspath = os.path.abspath(__file__)
-dname = os.path.dirname(abspath)
-os.chdir(dname)
+
 
 range_regex = re.compile('([0-9,]+)\s*-\s*([0-9,]+)')
 def parse(str):
