@@ -1,31 +1,39 @@
 const format = d3.format(",");
 
 
-export class Legend {
+export class VerticalLegend {
     /**
-     *
+     * Creates a new legend with a given scale
      *
      * @param {d3.seleciton} svg
      * @param {number[]} thresholds
      * @param {string[]} colorNames
+     * @param {(x:number) => number} scaler
      */
-    constructor(svg, thresholds, colorNames) {
+    constructor(svg, thresholds, colorNames, scaler) {
         this.thresholds = thresholds;
         this.colorNames = colorNames;
         this.svg = svg;
-
-        let scaler = x => Math.pow(x, 1/4);
 
         this.sizes = [];
         for (let i = 0; i < thresholds.length - 1; i++) {
             let rawSize = thresholds[i + 1] - thresholds[i];
             this.sizes.push(scaler(rawSize));
         }
+        
         let smallestSize = Math.min(...this.sizes);
         this.sizes = this.sizes.map(size => size / smallestSize);
         this.totalSize = this.sizes.reduce((a, b) => a + b);
     }
 
+    /**
+     * Draws the legend in the given area
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     * @param {number} width 
+     * @param {number} height 
+     */
     draw(x, y, width, height) {
         this.legend = this.svg
             .append("g")
@@ -34,10 +42,12 @@ export class Legend {
         let yPos = 0;
         for (let i = 0; i < this.thresholds.length; i++) {
             let blockHeight = (this.sizes[i] / this.totalSize) * height;
+
+            let legendYPadding = i === this.thresholds.length - 1 ? 0 : 5;
             this.legend
                 .append("text")
                 .attr("x", width + 5)
-                .attr("y", yPos + 5)
+                .attr("y", yPos + legendYPadding)
                 .text(format(this.thresholds[i]));
 
             if (i < this.sizes.length) {

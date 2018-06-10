@@ -1,6 +1,6 @@
 import { makeLineGraph, makeLineGraphData } from "./line-graph.js";
 import { tip } from "./tooltip-config.js";
-import { Legend } from "./legend.js";
+import { VerticalLegend } from "./legend.js";
 
 const margin = {
         top: 0,
@@ -19,7 +19,7 @@ const colorNames = [
     "map-color-4",
     "map-color-5"
 ];
-const colorThresholds = [0, 25, 250, 2500, 25000, 210000];
+const colorThresholds = [1, 25, 250, 2500, 25000, 210000];
 const color = d3
     .scaleThreshold()
     .domain(colorThresholds)
@@ -142,7 +142,7 @@ function setData(geoData, request_data, yearLow, yearHigh) {
             return color(requestsById[d.id]);
         })
         .classed("country", true)
-
+        .classed("selected", d => countriesToGraph.has(names[d.id]))
         // tooltips
         .on("mouseover", function(d) {
             tip.show(d);
@@ -153,16 +153,8 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .on("click", function(d) {
             if (requestsById[d.id] > 0)
                 toggleCountry(request_data, names[d.id], yearLow, yearHigh);
-
-            if (countriesToGraph.has(names[d.id])) {
-                d3.select(this)
-                    .classed("country", false)
-                    .classed("selected", true);
-            } else {
-                d3.select(this)
-                    .classed("country", true)
-                    .classed("selected", false);
-            }
+            d3.select(this)
+                .classed("selected", countriesToGraph.has(names[d.id]));
         });
 
     svg.append("path")
@@ -180,9 +172,8 @@ function setData(geoData, request_data, yearLow, yearHigh) {
         .attr("class", "legendLinear")
         .attr("transform", "translate(30,330)");
 
-    let legend = new Legend(svg, colorThresholds, colorNames);
-
-    legend.draw(40, 60, 20, 420);
+    let legend = new VerticalLegend(svg, colorThresholds, colorNames, x => Math.pow(x, 1/4));
+    legend.draw(40, 60, 20, 437);
 
 }
 
