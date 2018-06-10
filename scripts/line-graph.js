@@ -40,13 +40,7 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
 }
 
 function getWidth() {
-    return Math.max(
-        document.body.scrollWidth,
-        document.documentElement.scrollWidth,
-        document.body.offsetWidth,
-        document.documentElement.offsetWidth,
-        document.documentElement.clientWidth
-    );
+    return window.innerWidth || document.body.clientWidth;
 }
 
 const margin = {
