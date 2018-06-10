@@ -22,10 +22,10 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
             });
         }
     }
-    
+
     for (let goalCountry of goalCountries.values()) {
         for (let year = rangeLow; year <= rangeHigh; year++) {
-            if (!goalCountry.values.find(v => parseInt(v.year) === year )) {
+            if (!goalCountry.values.find(v => parseInt(v.year) === year)) {
                 goalCountry.values.push({
                     id: new Date(year.toString()),
                     value: 0,
@@ -39,13 +39,23 @@ export function makeLineGraphData(data, countries, rangeLow, rangeHigh) {
     return Array.from(goalCountries.values());
 }
 
+function getWidth() {
+    return Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    );
+}
+
 const margin = {
         top: 20,
-        right: 90,
+        right: 110,
         bottom: 40,
         left: 60
     },
-    totalWidth = 500,
+    totalWidth = getWidth() - 965,
     totalHeight = 600,
     width = totalWidth - margin.left - margin.right,
     height = totalHeight - margin.top - margin.bottom;

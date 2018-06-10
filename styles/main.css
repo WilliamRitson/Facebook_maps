@@ -7,6 +7,10 @@
 /* Import the CSS for the tooltips*/
 @import "tooltip.css";
 
+#line-chart {
+  margin-left: -40px;
+}
+
 #toggle-area {
   margin-top: -50px;
   position: relative;
