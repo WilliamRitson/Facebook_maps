@@ -14,7 +14,7 @@
 #toggle-area {
   margin-top: -50px;
   position: relative;
-  width: 320px;
+  width: 4700px;
   left: 350px;
   bottom: -60px;
 }
@@ -40,6 +40,12 @@
   background-color: rgb(234, 67, 53);
   color: white;
 }
+
+#select-microsoft {
+  background-color: #81bb05;
+  color: white;
+}
+
 
 /* Define the CSS for the rest of the document (header, layout, ect) */
 h1 {

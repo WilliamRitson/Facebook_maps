@@ -185,18 +185,23 @@ queue()
     .defer(d3.json, "data/world_countries.json")
     .defer(d3.tsv, "data/facebook_output/all_facebook.tsv")
     .defer(d3.tsv, "data/google_output/all_google.tsv")
+    .defer(d3.tsv, "data/microsoft_output/all_microsoft.tsv")
     .await(ready);
 
-function ready(error, geoData, facebookRequets, googleRequets) {
+function ready(error, geoData, facebookRequests, googleRequests, microsoftRequests) {
     document.getElementById("select-facebook").addEventListener("click", () => {
-        setData(geoData, facebookRequets, 2013, 2017);
+        setData(geoData, facebookRequests, 2013, 2017);
     });
 
     document.getElementById("select-google").addEventListener("click", () => {
-        setData(geoData, googleRequets, 2013, 2017);
+        setData(geoData, googleRequests, 2013, 2017);
     });
 
-    setData(geoData, facebookRequets, 2013, 2017);
+    document.getElementById("select-microsoft").addEventListener("click", () => {
+        setData(geoData, microsoftRequests, 2013, 2017);
+    });
+
+    setData(geoData, facebookRequests, 2013, 2017);
     drawSlider();
 }
 
