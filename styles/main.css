@@ -68,6 +68,16 @@ h1 {
   text-align: center;
 }
 
+int1 {
+      width: 95%;
+  overflow: hidden;
+  float: left;
+    background: rgb(224,224,224);
+    border-radius: 25px;
+    padding: 15px;
+    text-align:justify;
+}
+
 .details {
   color: white;
 }
@@ -81,7 +91,12 @@ h1 {
 }
 
 footer {
-  width: 100%;
+  width: 95%;
   overflow: hidden;
   float: left;
+    background: rgb(224,224,224);
+    border-radius: 25px;
+    padding: 30px;
+    text-align:justify;
 }
+
