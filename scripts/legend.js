@@ -43,7 +43,7 @@ export class VerticalLegend {
         let yPos = 0;
         for (let i = this.thresholds.length - 1; i >= 0; i--) {
             let blockHeight = ((this.sizes[i] || 0) / this.totalSize) * height;
-            let legendYPadding = i === this.thresholds.length - 1 ? 0 : 5;
+            let legendYPadding = i === 0 ? 0 : 5;
 
             if (i < this.sizes.length) {
                 this.legend

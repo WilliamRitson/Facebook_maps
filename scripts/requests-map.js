@@ -187,7 +187,7 @@ function setData(geoData, request_data, yearLow, yearHigh) {
     let legend = new VerticalLegend(svg, colorThresholds, colorNames, x =>
         Math.pow(x, 1 / 4)
     );
-    legend.draw(40, 60, 20, 437);
+    legend.draw(40, 60, 20, 430);
 }
 
 Promise.all([
