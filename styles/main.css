@@ -8,10 +8,6 @@
 @import "tooltip.css";
 
 
-footer a {
-  display: block;
-}
-
 #double-slider {
   margin-bottom: -50px;
   position: relative;
