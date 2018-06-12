@@ -11,7 +11,7 @@ const margin = {
         bottom: 0,
         left: 0
     },
-    width = 960 - margin.left - margin.right,
+    width = 850 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 const colorNames = [
@@ -77,7 +77,7 @@ const defaultGraphCountries = [
     "United Kingdom",
     "Germany",
     "France",
-    "Canada"
+    "Brazil"
 ];
 const countriesToGraph = new Set();
 

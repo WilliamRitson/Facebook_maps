@@ -51,7 +51,7 @@ const margin = {
         bottom: 40,
         left: 60
     },
-    totalWidth = getWidth() - 965,
+    totalWidth = getWidth() - 865,
     totalHeight = 600,
     width = totalWidth - margin.left - margin.right,
     height = totalHeight - margin.top - margin.bottom;
@@ -70,9 +70,14 @@ export function makeLineGraph(data) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+    const colorScheme = Array.from(d3.schemeCategory10);
+    colorScheme[1] = "black";
+    colorScheme[3] = "gold";
+
     const x = d3.scaleTime().range([0, width]),
         y = d3.scaleLinear().range([height, 0]),
-        z = d3.scaleOrdinal(d3.schemeCategory10);
+        z = d3.scaleOrdinal(colorScheme );
 
     const line = d3
         .line()
