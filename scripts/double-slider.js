@@ -23,7 +23,7 @@ svg.append("g")
     .call(xAxis.ticks(d3.timeYear));
 
 const formatTime = d3.timeFormat("%Y");
-function brushed(callback) {
+function brushed(callback, brush, brushg) {
     return () => {
         if (!d3.event.sourceEvent) return; // Only transition after input.
 
@@ -36,12 +36,13 @@ function brushed(callback) {
 
         callback(begTime, enTime);
 
-        // If empty when rounded, use floor instead.
-        if (d1[0] >= d1[1]) {
-            d1[0] = d3.timeYear.floor(d0[0]);
-            d1[1] = d3.timeYear.offset(d1[0]);
+        // Make sure the two years are not exactly the same, so the seletor always shows
+        if (d1[0].getYear() === d1[1].getYear()) {
+            d1[0].setSeconds(d1[0].getSeconds() - 1);
+            d1[1].setSeconds(d1[1].getSeconds() + 1);
         }
 
+        brush.move(brushg, [d1[0], d1[1]].map(xAxisScale)); // Snapping
         d3.select(this).call(d3.event.target.move, d1.map(xAxisScale));
     };
 }
@@ -49,14 +50,15 @@ function brushed(callback) {
 export function makeSlider(callback) {
     const brush = d3
         .brushX()
-        .extent([[0, 0], [500, 100]])
-        .on("brush", brushed(callback));
+        .extent([[0, 0], [500, 100]]);
 
     const brushg = svg
         .append("g")
         .attr("class", "brush")
         .call(brush)
         .attr("transform", "translate(20, 50)");
+
+    brush.on("brush", brushed(callback, brush, brushg));
 
     brushg.selectAll("rect.handle").style("fill", "#276c86");
     brush.move(brushg, [startDate, endDate].map(xAxisScale));
