@@ -21,7 +21,6 @@
 /* Slider colors */
 .handle {
   fill: #026380c2;
-  z-index: -1;
 }
 .selection {
   fill: rgb(253, 243, 186);
