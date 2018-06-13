@@ -2,18 +2,18 @@ import d3 from "https://dev.jspm.io/d3";
 
 const svg = d3
     .select("#double-slider")
-    .attr("width", 740) //600
-    .attr("height", 100) //100
+    .attr("width", 740) 
+    .attr("height", 100) 
     .append("g")
     .attr("class", "map");
 
-const endDate = new Date(2018, 0, 1);
+const endDate = new Date(2017, 0, 1);
 const startDate = new Date(2013, 0, 1);
 
 const xAxisScale = d3
     .scaleTime()
     .domain([startDate, endDate])
-    .range([0, 500]) // adjusts size of xaxisline 500 was width previously
+    .range([0, 500])
     .clamp(true);
 
 const xAxis = d3.axisBottom(xAxisScale).tickFormat(d3.timeFormat("%Y"));
@@ -31,7 +31,7 @@ function brushed(callback) {
         let d0 = d3.event.selection.map(xAxisScale.invert),
             d1 = d0.map(d3.timeYear.round);
 
-        let enTime = formatTime(d1[1]); // - 1 no effect
+        let enTime = formatTime(d1[1]);
         let begTime = formatTime(d1[0]);
 
         callback(begTime, enTime);
@@ -40,10 +40,6 @@ function brushed(callback) {
         if (d1[0] >= d1[1]) {
             d1[0] = d3.timeYear.floor(d0[0]);
             d1[1] = d3.timeYear.offset(d1[0]);
-
-            // added code
-            //begTime = formatTime(d1[0]);
-            //enTime = formatTime(d1[1]) - 1;
         }
 
         d3.select(this).call(d3.event.target.move, d1.map(xAxisScale));
@@ -63,4 +59,6 @@ export function makeSlider(callback) {
         .attr("transform", "translate(20, 50)");
 
     brushg.selectAll("rect.handle").style("fill", "#276c86");
+    brush.move(brushg, [startDate, endDate].map(xAxisScale));
+    
 }
