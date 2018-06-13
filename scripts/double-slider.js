@@ -60,7 +60,6 @@ export function makeSlider(callback) {
 
     brush.on("brush", brushed(callback, brush, brushg));
 
-    brushg.selectAll("rect.handle").style("fill", "#276c86");
     brush.move(brushg, [startDate, endDate].map(xAxisScale));
     
 }
