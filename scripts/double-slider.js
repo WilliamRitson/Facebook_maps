@@ -50,7 +50,8 @@ function brushed(callback, brush, brushg) {
 export function makeSlider(callback) {
     const brush = d3
         .brushX()
-        .extent([[0, 0], [500, 100]]);
+        .extent([[0, 0], [500, 35]])
+        .handleSize(3);
 
     const brushg = svg
         .append("g")
