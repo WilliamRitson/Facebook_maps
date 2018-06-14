@@ -6,7 +6,7 @@ const format = d3.format(",");
 function makeTip(name, requests, accounts, provided, approval) {
     return `
         <table>
-        <caption>Data Requets 2013-2017</caption>
+        <caption>Data Requests </caption>
         <tr>
             <th align='left'>Country</th>
             <td align='center'>:</td>
