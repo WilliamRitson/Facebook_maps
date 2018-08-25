@@ -1,10 +1,6 @@
-# Facebook_maps
-Facebook Map Visualization Project
-Visualization found at:
-https://seangithub1.github.io/Facebook_maps/
+# Government Data Requests Visualization
+This is a visualization of how many data requests have been made by various governments to three tech giants Facebook, Google and Microsoft by various governments from 2012 to 2017. It was created during the Data Visualization course at UCSC in 2018 by me, Sean Gaudefroy and Mike Pluguez.
 
-Overall Map is based on:
-http://bl.ocks.org/micahstubbs/8e15870eb432a21f0bc4d3d527b2d14f
+You can see it at https://williamritson.github.io/Government-Data-Requests/ it is tested on Chrome and may not work properly on other browsers.
 
-Relevant edits can be found in Karthik's project:
-https://github.com/balakrishna-k/WildLifeTrafficking
+More information can be found on the live page.
